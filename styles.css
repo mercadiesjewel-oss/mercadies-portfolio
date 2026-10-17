@@ -1,0 +1,1129 @@
+/* Design tokens (from Figma: Simple Design System + Launch frame) */
+:root {
+  --bg: #f6f6f6;               /* canvas under the 10% white frame fill */
+  --ink: #000;
+  --surface: #d9d9d9;
+  --on-brand: #f5f5f5;
+  --btn-light: #fff;
+
+  /* Articulat CF is a commercial typeface; Inter is the fallback */
+  --font-display: "Articulat CF", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;  /* --sds-typography-body-font-family */
+
+  /* Type scale for content text (hero, nav and buttons keep their own sizes) */
+  --text-heading: 32px;     --lh-heading: 39px;
+  --text-subheading: 24px;  --lh-subheading: 29px;
+  --text-body: 16px;        --lh-body: 19px;
+
+  --space-200: 8px;
+  --space-300: 12px;
+  --radius-200: 8px;
+
+  --shadow-card: 0 4px 5px 2px rgba(0, 0, 0, .25);
+  --shadow-btn: 0 4px 10.9px 4px rgba(0, 0, 0, .25);
+
+  /* Side margin: 100px at full width (as designed), easing smoothly down to
+     48px on tablets — no sudden jumps, so the nav switches to the hamburger
+     at exactly one width */
+  --gutter: clamp(48px, 6.26vw, 100px);
+
+  --ease-expo: cubic-bezier(.16, 1, .3, 1);   /* shared "glide to a stop" easing */
+
+  /* Section rhythm: sections are separated by generous, even space alone
+     (no rules), with the same gap from heading to content everywhere */
+  --section-space: 200px;
+  --heading-gap: 40px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;                     /* full-bleed pieces never cause sideways scrolling */
+}
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+img { display: block; }
+
+/* Paper grain — the design has a noise effect over the whole frame */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.35 0 0 0 .78 .35 0 0 0 .78 .35 0 0 0 .78 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- Living background ----------
+   Soft dark-grey light flowing behind the page on all devices. Sits behind
+   all content; the grain layer above gives it texture. Radial gradients
+   (not blur filters) keep it cheap to animate. */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Each glow is an irregular cloud: several soft ovals of different sizes,
+   placed off-centre so they merge into a lumpy, organic shape (each glow
+   has its own). It flows along a looping path made of two circles turning
+   at different speeds (an orbit inside an orbit), turns very slowly and
+   stretches/squashes gently, so its silhouette keeps shifting. Every motion
+   is a continuous loop: it never stops, never reverses, never shows a seam.
+     --x/--y  anchor point     --r1/--t1  big circle radius / lap time
+     --size   cloud area       --r2/--t2  small circle radius / lap time
+     --tone   centre colour    --tb  stretch time   --ts  turn time   --dir  orbit direction */
+.ambient__orbit {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 0;
+  height: 0;
+  will-change: transform;
+  animation: orbit var(--t1) linear infinite var(--dir, normal);
+  animation-delay: var(--phase, 0s);
+}
+.ambient__blob {
+  position: absolute;
+  left: calc(var(--size) / -2);
+  top: calc(var(--size) / -2);
+  width: var(--size);
+  height: var(--size);
+  /* Feathered falloff (roughly a bell curve) for every oval, so the
+     cloud melts into the background with no visible edge */
+  --fall:
+    var(--tone) 0%,
+    color-mix(in srgb, var(--tone) 72%, transparent) 22%,
+    color-mix(in srgb, var(--tone) 42%, transparent) 45%,
+    color-mix(in srgb, var(--tone) 17%, transparent) 68%,
+    color-mix(in srgb, var(--tone) 5%, transparent) 86%,
+    transparent 100%;
+  background: var(--shape);
+  will-change: transform;
+  --r1: var(--r2);                    /* inner circle reuses the orbit keyframes */
+  animation:
+    orbit var(--t2) linear infinite reverse,
+    turn var(--ts) linear infinite,
+    stretch var(--tb) ease-in-out infinite alternate;
+}
+@keyframes orbit {
+  from { transform: rotate(0turn) translateX(var(--r1)); }
+  to   { transform: rotate(1turn) translateX(var(--r1)); }
+}
+@keyframes turn {
+  from { rotate: 0turn; }
+  to   { rotate: 1turn; }
+}
+@keyframes stretch {
+  from { scale: .94 1.06; }
+  to   { scale: 1.08 .92; }
+}
+/* Four different cloud shapes — each oval: size, then where it sits */
+.ambient__orbit--a .ambient__blob { --shape:
+  radial-gradient(ellipse 34% 26% at 38% 44%, var(--fall)),
+  radial-gradient(ellipse 24% 30% at 60% 54%, var(--fall)),
+  radial-gradient(ellipse 20% 16% at 50% 30%, var(--fall)),
+  radial-gradient(ellipse 16% 20% at 30% 62%, var(--fall)); }
+.ambient__orbit--b .ambient__blob { --shape:
+  radial-gradient(ellipse 30% 22% at 46% 52%, var(--fall)),
+  radial-gradient(ellipse 18% 28% at 66% 40%, var(--fall)),
+  radial-gradient(ellipse 22% 14% at 34% 36%, var(--fall)),
+  radial-gradient(ellipse 14% 18% at 58% 70%, var(--fall)); }
+.ambient__orbit--c .ambient__blob { --shape:
+  radial-gradient(ellipse 28% 32% at 44% 46%, var(--fall)),
+  radial-gradient(ellipse 26% 16% at 62% 64%, var(--fall)),
+  radial-gradient(ellipse 14% 20% at 68% 34%, var(--fall)); }
+.ambient__orbit--d .ambient__blob { --shape:
+  radial-gradient(ellipse 32% 20% at 50% 46%, var(--fall)),
+  radial-gradient(ellipse 20% 24% at 34% 58%, var(--fall)),
+  radial-gradient(ellipse 18% 22% at 66% 36%, var(--fall)),
+  radial-gradient(ellipse 12% 14% at 72% 62%, var(--fall)); }
+.ambient__orbit--a { --x: 18%; --y: 22%; --size: 120vmax; --tone: rgba(50, 50, 50, .15);
+                     --r1: 21vw; --t1: 40s; --r2: 10vw; --t2: 26s; --tb: 17s; --ts: 200s; }
+.ambient__orbit--b { --x: 82%; --y: 78%; --size: 132vmax; --tone: rgba(36, 36, 36, .13);
+                     --r1: 25vw; --t1: 48s; --r2: 11vw; --t2: 31s; --tb: 20s; --ts: 240s; --dir: reverse; --phase: -9s; }
+.ambient__orbit--c { --x: 55%; --y: 42%; --size: 90vmax;  --tone: rgba(60, 60, 60, .12);
+                     --r1: 27vw; --t1: 34s; --r2: 9vw;  --t2: 23s; --tb: 14s; --ts: 170s; --phase: -14s; }
+.ambient__orbit--d { --x: 12%; --y: 88%; --size: 98vmax;  --tone: rgba(44, 44, 44, .125);
+                     --r1: 18vw; --t1: 42s; --r2: 12vw; --t2: 28s; --tb: 18s; --ts: 220s; --dir: reverse; --phase: -4s; }
+
+.page {
+  max-width: 1597px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* ---------- Nav ---------- */
+/* Sticky nav: sits 50px down at the top of the page (as designed), then tucks
+   up to a 10px inset once scrolled — the negative top means the bar never
+   changes height, so nothing below it shifts. */
+.site-header {
+  --header-pad: 50px;
+  position: sticky;
+  top: calc(10px - var(--header-pad));
+  z-index: 50;
+  padding: var(--header-pad) 0 10px;
+  /* Clear at the top so the living background flows behind it; once
+     scrolled it becomes frosted glass over the moving gradient */
+  background: rgba(246, 246, 246, 0);
+  transition: box-shadow .3s ease, background-color .6s ease;
+}
+.site-header.is-stuck,
+.site-header.is-open {
+  background: rgba(246, 246, 246, .62);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  backdrop-filter: blur(16px) saturate(1.1);
+}
+.site-header.is-stuck { box-shadow: 0 6px 18px -10px rgba(0, 0, 0, .25); }
+/* Nav jumps land each heading ~90px from the top, just under the bar */
+section[id] { scroll-margin-top: calc(90px - var(--section-space)); }
+/* Desktop: the "M" and every link are spread evenly across the bar, with the
+   same gap between each word. When the words can no longer all fit with at
+   least --nav-min-gap between them, main.js adds .nav-compact to <html> and
+   the bar switches to the hamburger menu, so no word is ever squeezed or cut. */
+.nav {
+  --ease-soft: cubic-bezier(.22, .61, .36, 1);
+  --nav-min-gap: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--nav-min-gap);
+}
+.nav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even spread */
+.nav a {
+  display: inline-block;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 50px;
+  white-space: nowrap;
+  position: relative;
+  transition: opacity .3s var(--ease-soft), transform .3s var(--ease-soft);
+}
+/* "M" mark: always visible, takes you back to the top of the landing page */
+/* Soft hover: the other links fade back slightly while the hovered one lifts and underlines */
+@media (hover: hover) {
+  .nav:hover a:not(:hover) { opacity: .55; }
+  .nav a:hover { transform: translateY(-1px); }
+}
+.nav a:focus-visible { transform: translateY(-1px); }
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 10px;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .4s var(--ease-soft);
+}
+.nav a:hover::after, .nav a:focus-visible::after,
+.nav a.is-current::after {             /* underline follows the section you're reading */
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Hamburger button (only when the words no longer fit) */
+.nav__toggle {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin: 3px -10px 3px auto;         /* optically aligns the bars with the gutter */
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color .3s var(--ease-soft);
+}
+.nav__toggle:hover { background-color: rgba(0, 0, 0, .06); }
+.nav__toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.nav__toggle span {
+  position: absolute;
+  left: 11px;
+  width: 22px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform .45s var(--ease-soft), opacity .25s var(--ease-soft);
+}
+.nav__toggle span:nth-child(1) { top: 15px; }
+.nav__toggle span:nth-child(2) { top: 21px; }
+.nav__toggle span:nth-child(3) { top: 27px; }
+/* Bars fold into an X when the menu is open */
+.is-open .nav__toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.is-open .nav__toggle span:nth-child(2) { opacity: 0; transform: scaleX(.3); }
+.is-open .nav__toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* While switching between the full bar and the hamburger, nothing animates —
+   so the closed dropdown never flashes open on the way */
+.nav-switching .nav ul,
+.nav-switching .nav li,
+.nav-switching .nav a,
+.nav-switching .nav__toggle,
+.nav-switching .nav__toggle span { transition: none !important; }
+
+/* ---- Compact (hamburger) mode ---- */
+.nav-compact .site-header.is-open { box-shadow: 0 6px 18px -10px rgba(0, 0, 0, .25); }
+.nav-compact .nav { gap: 0; }
+.nav-compact .nav__toggle { display: block; }
+
+/* Dropdown panel: fades and glides down from under the bar */
+.nav-compact .nav ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 8px var(--gutter) 28px;
+  background: rgba(246, 246, 246, .97);
+  box-shadow: 0 18px 24px -18px rgba(0, 0, 0, .3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: opacity .35s var(--ease-soft), transform .45s var(--ease-soft), visibility 0s linear .45s;
+}
+.nav-compact .is-open .nav ul {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity .35s var(--ease-soft), transform .45s var(--ease-soft), visibility 0s;
+}
+
+/* Links drift in one after another */
+.nav-compact .nav li {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity .3s var(--ease-soft), transform .4s var(--ease-soft);
+}
+.nav-compact .is-open .nav li { opacity: 1; transform: none; }
+.nav-compact .is-open .nav li:nth-child(1) { transition-delay: .06s; }
+.nav-compact .is-open .nav li:nth-child(2) { transition-delay: .10s; }
+.nav-compact .is-open .nav li:nth-child(3) { transition-delay: .14s; }
+.nav-compact .is-open .nav li:nth-child(4) { transition-delay: .18s; }
+.nav-compact .is-open .nav li:nth-child(5) { transition-delay: .22s; }
+.nav-compact .nav li a { line-height: 48px; }
+.nav-compact .nav li a::after { bottom: 9px; }
+
+/* ---------- Hero ---------- */
+/* The hero fills the first screen, with the lockup centred in it */
+.hero {
+  container-type: inline-size;
+  display: flex;
+  align-items: center;
+  /* Fills the first screen, but never taller than 60% of the width — so on
+     narrow screens the space above/below shrinks with the lockup and keeps
+     the same balance as desktop (lockup ≈ 36% of the hero's height) */
+  --header-h: 110px;                  /* nav bar height at the top of the page */
+  min-height: min(calc(100svh - var(--header-h)), 60vw);
+  padding-block: min(80px, 8vw);
+}
+/* Lockup: everything is sized in em off one font-size, so the three pieces
+   scale together as a single unit and never shift relative to each other.
+   The name spans the full content width (uppercase name ≈ 5.86em wide). */
+.hero__lockup {
+  width: max-content;
+  font-size: 17cqi;
+  font-weight: 900;
+}
+.hero__eyebrow,
+.hero__year {
+  font-size: max(.1875em, 12px);      /* 24 : 128 — the original ratio to the name (12px floor for phones) */
+  line-height: 1.2;
+}
+.hero__title {
+  margin: .07em 0 .05em;
+  font-size: 1em;
+  line-height: .8;                    /* caps only, so no room needed for descenders */
+  letter-spacing: -.02em;
+  text-transform: uppercase;
+  text-shadow: 0 .031em .031em rgba(0, 0, 0, .25);
+}
+.hero__year { text-align: right; }
+.hero__chars { display: inline-block; }
+.hero__chars > span { display: inline-block; }
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Intro build: a title builds itself piece by piece ----------
+   Used by the landing hero and project page titles ([data-intro]).
+   .js-intro is set in <head> (skipped for reduced-motion users) so nothing
+   flashes before the sequence. It replays every time it comes back into
+   view: hidden → .intro-play (animating) → .is-built (finished); scrolling
+   it fully out of view resets it to hidden.
+   Sequence: letters rise and sharpen one after another → "Creative
+   Portfolio" drops onto the name → "2026" rises into its slot → the
+   shadow ([data-intro-shadow]) settles underneath. */
+.js-intro [data-intro]:not(.is-built) .hero__chars > span,
+.js-intro [data-intro]:not(.is-built) .hero__eyebrow,
+.js-intro [data-intro]:not(.is-built) .hero__year { opacity: 0; }
+.js-intro [data-intro]:not(.is-built):not(.is-settled) [data-intro-shadow] {
+  text-shadow: 0 .031em .031em rgba(0, 0, 0, 0);
+}
+.js-intro [data-intro-shadow] { transition: text-shadow 1.4s ease; }
+
+[data-intro] { --stagger: 110ms; }      /* gap between letters (longer titles use less) */
+[data-intro].intro-play .hero__chars > span {
+  animation: brick-in 1.9s var(--ease-expo) calc(var(--i) * var(--stagger)) both;
+}
+[data-intro].intro-play .hero__eyebrow { animation: drop-in 1.7s var(--ease-expo) .9s both; }
+[data-intro].intro-play .hero__year    { animation: rise-in 1.7s var(--ease-expo) 1.2s both; }
+
+/* Nav arrives once, on first load only, after the hero has mostly built:
+   desktop links drift down one by one; on smaller screens the menu button fades in */
+.nav-intro .nav__toggle,
+.nav-intro .nav__brand { opacity: 0; }
+.nav-intro.nav-play .nav__toggle,
+.nav-intro.nav-play .nav__brand { animation: fade-in 1.8s ease 1.8s both; }
+/* Full bar: the M arrives first, then the links one by one */
+.nav-intro:not(.nav-compact) .nav li { opacity: 0; }
+.nav-intro.nav-play:not(.nav-compact) .nav__brand,
+.nav-intro.nav-play:not(.nav-compact) .nav li {
+  animation: nav-in 1.8s var(--ease-expo) calc(1.8s + var(--n) * 140ms) both;
+}
+.nav__brand { --n: 0; }
+.nav li:nth-child(1) { --n: 1; }
+.nav li:nth-child(2) { --n: 2; }
+.nav li:nth-child(3) { --n: 3; }
+.nav li:nth-child(4) { --n: 4; }
+.nav li:nth-child(5) { --n: 5; }
+@keyframes nav-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Section reveals ----------
+   Quieter than the hero on purpose (no blur, no letter build). Every
+   section enters the same way: heading (--d:0) → main content (--d:1) →
+   secondary piece (--d:2), each rising and fading in with the same
+   duration and spacing. */
+.motion [data-reveal-group]:not(.is-revealed) [data-reveal] { opacity: 0; }
+.motion .is-revealed [data-reveal] {
+  animation: reveal-up 2.2s var(--ease-expo) calc(var(--d, 0) * 260ms) both;
+}
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes brick-in {
+  from { opacity: 0; transform: translateY(.34em) scale(.96); filter: blur(.05em); }
+  60%  { opacity: 1; }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes drop-in {
+  from { opacity: 0; transform: translateY(-.9em); filter: blur(3px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(.9em); filter: blur(3px); }
+  to   { opacity: 1; transform: none; filter: blur(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ---------- Section headings ---------- */
+.section-title { font-weight: 900; font-size: var(--text-heading); line-height: var(--lh-heading); }
+
+/* ---------- Section rhythm ---------- */
+.about, .education, .projects, .contact { padding-block: var(--section-space); }
+
+/* ---------- About ---------- */
+.about__body {
+  width: 600px;
+  max-width: 100%;
+  margin-top: var(--heading-gap);
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+}
+
+/* ---------- Education ---------- */
+.education__layout { margin-top: var(--heading-gap); }
+.education__degree {
+  font-weight: 700;
+  font-size: var(--text-subheading);
+  line-height: var(--lh-subheading);
+}
+/* Each line is its own block; the degree can only break between
+   "Bachelor of Creative Arts" and "(Visual Arts and Design)", never mid-phrase */
+.education__degree > span { display: block; }
+.nowrap { white-space: nowrap; }
+.education__body {
+  width: 603px;
+  max-width: 100%;
+  margin-top: 32px;
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+}
+/* Resume prompt stacks under the copy on the same left edge. The 48px gap is
+   wider than the 32px between degree and copy (so it reads as its own beat)
+   but close enough to stay part of the Education block. */
+.resume {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 48px;
+}
+.resume__prompt {
+  font-weight: 600;                   /* semibold italic keeps it a step above body copy */
+  font-style: italic;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+}
+/* Download button scaled with its prompt: the prompt went 24px → 16px (⅔),
+   so the button, its label, shadow and spacing follow at ⅔ of the original */
+.resume .btn {
+  width: 134px;
+  height: 66px;
+  margin-top: 24px;
+  font-size: 14px;
+  box-shadow: 0 3px 7px 3px rgba(0, 0, 0, .25);
+}
+
+/* ---------- Buttons (SDS Button / Primary / Medium) ---------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-200);
+  padding: var(--space-300);
+  border-radius: var(--radius-200);
+  box-shadow: var(--shadow-btn);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+  transition: box-shadow .25s ease, translate .25s ease;
+}
+.btn:hover, .btn:focus-visible {
+  translate: 0 -3px;
+  box-shadow: 0 8px 16px 4px rgba(0, 0, 0, .28);
+}
+.btn:active { translate: 0 0; box-shadow: var(--shadow-btn); }
+.btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.btn--dark  { background: var(--ink); color: var(--on-brand); }
+.btn--light { background: var(--btn-light); color: var(--ink); }
+.btn--sm { width: 201px; height: 99px; }
+
+/* ---------- Design projects ---------- */
+/* Expanding gallery: cards sit on one horizontal plane. The active card
+   glides open while the others fold into slim slices; hover (desktop) or
+   tap/swipe (touch) moves between them. */
+.projects {
+  --ease-lux: cubic-bezier(.76, 0, .24, 1);      /* slow in, slow out */
+  --ease-settle: cubic-bezier(.22, .61, .36, 1); /* gentle deceleration */
+  --card-radius: 32px;
+  --card-gap: 16px;
+  --card-open: 4;                                /* open card = 4× a folded one */
+}
+.projects__rail {
+  display: flex;
+  gap: var(--card-gap);
+  height: clamp(360px, 36vw, 560px);
+  margin-top: var(--heading-gap);
+  touch-action: pan-y;                /* vertical page scroll stays native; horizontal swipes are ours */
+}
+.project-card {
+  /* button reset */
+  appearance: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+  isolation: isolate;
+  transition: flex-grow .9s var(--ease-lux), box-shadow .6s var(--ease-settle);
+}
+.project-card.is-active {
+  flex-grow: var(--card-open);
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .35);
+}
+.project-card:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+
+/* Image: slightly zoomed and muted while folded, settles into place when opened */
+.project-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.14);
+  filter: saturate(.55) brightness(.88);
+  transition: transform 1.4s var(--ease-settle), filter .9s var(--ease-settle);
+}
+.project-card.is-active img { transform: scale(1); filter: none; }
+
+/* Soft scrim so white type stays legible */
+.project-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, .55), rgba(0, 0, 0, 0) 45%);
+  pointer-events: none;
+}
+
+/* Folded state: just the index number */
+.project-card__index {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24px;
+  z-index: 1;
+  text-align: center;
+  font-weight: 900;
+  font-size: var(--text-body);
+  line-height: 1;
+  transition: opacity .4s var(--ease-settle);
+}
+.project-card.is-active .project-card__index { opacity: 0; }
+
+/* Open state: caption rises in once the card has mostly opened */
+.project-card__caption {
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  bottom: 28px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .35s var(--ease-settle), transform .35s var(--ease-settle);
+}
+.project-card.is-active .project-card__caption {
+  opacity: 1;
+  transform: none;
+  transition: opacity .7s var(--ease-settle) .45s, transform .9s var(--ease-settle) .45s;
+}
+.project-card__title {
+  font-weight: 700;
+  font-size: var(--text-subheading);
+  line-height: var(--lh-subheading);
+  white-space: nowrap;
+}
+.project-card__meta {
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  opacity: .85;
+  white-space: nowrap;
+}
+
+/* "View project" cue: arrives last, and the arrow nudges forward on hover */
+.project-card__cta {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  white-space: nowrap;
+}
+.project-card__arrow {
+  display: inline-block;
+  margin-left: 4px;
+  transition: transform .6s var(--ease-settle);
+}
+.project-card.is-active:hover .project-card__arrow,
+.project-card.is-active:focus-visible .project-card__arrow { transform: translateX(6px); }
+
+/* Placeholder card (no image yet) uses dark type on the grey surface */
+.project-card--empty { color: var(--ink); }
+.project-card--empty::after { content: none; }
+
+/* Progress dots — shown on touch screens where there's no hover */
+.projects__dots {
+  display: none;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+.projects__dots button {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, .22);
+  cursor: pointer;
+  transition: width .6s var(--ease-lux), background-color .6s var(--ease-settle);
+}
+.projects__dots button[aria-current="true"] { width: 22px; background: var(--ink); }
+@media (hover: none) { .projects__dots { display: flex; } }
+
+/* ---------- Contact ---------- */
+.contact__title {
+  font-weight: 900;
+  font-size: var(--text-heading);
+  line-height: var(--lh-heading);
+  text-align: center;
+  transform: translateX(2px);
+}
+.contact__links {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 45px;
+  margin-top: var(--heading-gap);
+  transform: translateX(-4px);
+}
+.contact__links .btn--light { margin-top: 2px; }
+
+/* ==========================================================================
+   Project pages (Figma: "Flowstate Studios" frame, 1597px wide)
+   ========================================================================== */
+
+/* Nav sits over the hero photo at the top of the page, so its links start
+   white; once the bar frosts (scrolled) or the menu opens they return to ink */
+.site-header--over-image:not(.is-stuck):not(.is-open) .nav a,
+.site-header--over-image:not(.is-stuck):not(.is-open) .nav__toggle { color: #fff; }
+.site-header--over-image:not(.is-stuck):not(.is-open) .nav__toggle:hover { background-color: rgba(255, 255, 255, .14); }
+.site-header--over-image:not(.is-stuck):not(.is-open) .nav__toggle:focus-visible { outline-color: #fff; }
+
+/* Full-bleed hero photo, tucked up under the nav bar (1597 × 1200 in Figma) */
+.project-hero {
+  --header-h: 110px;                    /* nav bar height at the top of the page */
+  position: relative;
+  height: clamp(420px, 75.14vw, 1200px);
+  margin-top: calc(-1 * var(--header-h));
+  overflow: hidden;
+}
+.project-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 50%;             /* keeps the sign in frame when cropped */
+}
+/* A whisper of shade at the top so the white nav links stay legible over the sky */
+.project-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 180px;
+  background: linear-gradient(rgba(0, 0, 0, .22), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+/* On load the photo settles into place: a slow fade with a gentle zoom-out */
+.motion .project-hero img { animation: photo-settle 2.6s var(--ease-expo) both; }
+@keyframes photo-settle {
+  from { opacity: 0; transform: scale(1.06); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Project content uses Figma's 50px side margin; images bleed to the edges */
+.project { --gutter: 50px; }
+
+/* Title: 128px Heavy at full width, scaling with the screen (≈ 8vw).
+   It builds letter by letter like the landing hero ([data-intro]). */
+.project-title {
+  container-type: inline-size;          /* lets the title size itself to the available width */
+  padding-top: 72px;                    /* photo bottom → title (Figma) */
+}
+.project-title[data-intro] { --stagger: 60ms; }   /* 17 letters: a tighter cascade */
+.project-title h1 {
+  font-weight: 900;
+  /* 128px at full width, ≈ 8vw as the screen narrows — and never wider than
+     the space it has ("Flowstate Studios" ≈ 9.04em wide), so it always fits */
+  font-size: min(128px, 8vw, 100cqi / 9.2);
+  white-space: nowrap;                  /* the per-letter spans must never split the line */
+  line-height: 1.21;
+  text-shadow: 0 .031em .031em rgba(0, 0, 0, .25);
+}
+
+/* Intro: copy on the left, business cards bleeding off the right edge */
+.project-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 603px) minmax(0, 1fr);
+  column-gap: 50px;
+  align-items: start;
+  margin-top: 73px;                     /* title → intro row (Figma) */
+  margin-right: calc(-1 * var(--gutter));
+}
+.project-intro__text { margin-top: 59px; }
+.project-intro__heading {
+  font-weight: 800;
+  font-size: var(--text-heading);
+  line-height: var(--lh-heading);
+}
+.project-intro__tagline {
+  margin-top: 19px;
+  font-weight: 500;
+  font-size: var(--text-subheading);
+  line-height: var(--lh-subheading);
+  /* 16.32px at 24px, as designed; tightens a little on narrow phones so the
+     tagline always stays on one line */
+  letter-spacing: min(.68em, 2.3vw);
+  white-space: nowrap;
+}
+.project-intro__body {
+  margin-top: 19px;
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+}
+/* Business cards: front and back floating in a fanned stack.
+   Each card's place is set by --x/--y (offset, as a share of the card's own
+   size) and --r (tilt). --k scales the fan (0 = stacked together, 1 = resting
+   fan, >1 = spread on hover); --s scales the card. Changing any of these
+   animates the cards smoothly to their new place. */
+.card-stack {
+  --ease-card: cubic-bezier(.16, 1, .3, 1);
+  --k: 1; --rk: 1; --s: 1;
+  position: relative;
+  aspect-ratio: 900 / 760;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.card-stack__card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 58%;
+  aspect-ratio: 281 / 181;
+  transform:
+    translate(-50%, -50%)
+    translate(calc(var(--x) * var(--k)), calc(var(--y) * var(--k)))
+    rotate(calc(var(--r) * var(--rk)))
+    scale(var(--s));
+  transition: transform 1.4s var(--ease-card), z-index 0s linear .4s;
+}
+/* Front sits upper-left, back lower-right: the overlap lands on the back
+   card's empty top-left corner, so its name, details and tagline stay visible */
+.card-stack__card--front { --x: -28%; --y: -27%; --r: -5deg; z-index: 2; }
+.card-stack__card--back  { --x: 28%;  --y: 27%;  --r: 6deg;  z-index: 1; }
+/* Shuffled: the back of the card glides forward, the front tucks behind */
+.card-stack.is-swapped .card-stack__card--front { --x: 28%;  --y: 27%;  --r: 6deg;  z-index: 1; }
+.card-stack.is-swapped .card-stack__card--back  { --x: -28%; --y: -27%; --r: -5deg; z-index: 2; }
+/* Hover / keyboard focus: the fan opens a little wider and lifts */
+@media (hover: hover) {
+  .card-stack:hover { --k: 1.2; --rk: 1.25; --s: 1.02; }
+}
+.card-stack:focus-visible { --k: 1.2; --rk: 1.25; --s: 1.02; }
+.card-stack:focus-visible .card-stack__card--front img,
+.card-stack.is-swapped:focus-visible .card-stack__card--back img { outline: 2px solid var(--ink); outline-offset: 6px; }
+
+/* Gentle, endless float — each card on its own rhythm */
+.card-stack__float {
+  width: 100%;
+  height: 100%;
+  animation: card-float 7s ease-in-out infinite alternate;
+}
+.card-stack__card--back .card-stack__float { animation-duration: 9s; animation-delay: -4s; }
+@keyframes card-float {
+  from { transform: translateY(-1.8%) rotate(.7deg); }
+  to   { transform: translateY(1.8%) rotate(-.7deg); }
+}
+.card-stack img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow:
+    0 34px 60px -22px rgba(0, 0, 0, .45),
+    0 10px 20px -8px rgba(0, 0, 0, .25);
+}
+
+/* Arrival: while the section is hidden the cards sit stacked together; when
+   it reveals they slide apart into the fan (after the fade-up has begun) */
+.motion .project-intro:not(.is-revealed) .card-stack { --k: 0; --rk: .3; --s: .94; }
+.motion .project-intro.is-revealed .card-stack__card {
+  transition: transform 1.9s var(--ease-card) .45s, z-index 0s linear .4s;
+}
+.motion .project-intro.is-revealed .card-stack:hover .card-stack__card,
+.motion .project-intro.is-revealed .card-stack.is-swapped .card-stack__card,
+.motion .project-intro.is-revealed .card-stack:focus-visible .card-stack__card {
+  transition: transform 1.4s var(--ease-card), z-index 0s linear .4s;
+}
+
+/* Mockups: laptop and drink bottle side by side across the full width.
+   Both are cut-outs on transparent backgrounds, so the products sit directly
+   on the living background. */
+.project-mockups {
+  position: relative;
+  aspect-ratio: 1597 / 824;
+  margin-inline: calc(-1 * var(--gutter));
+}
+.project-mockups img {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  object-fit: contain;
+}
+.project-mockups__bottle { right: 0; width: 34.25%; }   /* 547 / 1597 */
+/* Laptop: scaled up from the design (≈ 590 → 680px wide) so it stands as tall
+   as the bottle (≈ 700px at full width) and carries the same visual weight;
+   centred on the same point as in Figma. The image is cropped tight to the
+   laptop itself. */
+.project-mockups .project-mockups__laptop {
+  left: 16.9%;
+  top: 7.2%;
+  width: 42.6%;                         /* ≈ 680 / 1597 */
+  height: auto;
+  aspect-ratio: 339 / 348;
+}
+
+/* ---------- Caddyshack Project page (Figma frame 18:104) ---------- */
+
+/* Light hero photo: nav stays black over it, so no top shade */
+.project-hero--light::after { content: none; }
+/* The postcards are a cut-out on a transparent background, so they float on
+   the living page background; a soft shadow follows each card's outline */
+.project-hero--light img {
+  object-position: 50% 50%;             /* centred, as in Figma */
+  filter: drop-shadow(0 22px 26px rgba(0, 0, 0, .18));
+}
+
+/* Title sits 60px under the photo; "Caddyshack Project" is ≈ 9.7em wide */
+.project-title--caddyshack { padding-top: 60px; }
+.project-title--caddyshack h1 { font-size: min(128px, 8vw, 100cqi / 9.85); }
+
+/* Intro row: copy (603) + gap (50) + photo (850), photo stops short of the edge */
+.project-intro--caddyshack {
+  grid-template-columns: minmax(0, 603px) minmax(0, 850px);
+  margin-top: 60px;
+  margin-right: 0;
+}
+.project-intro--caddyshack .project-intro__text { margin-top: 57px; }
+.project-intro__tagline--italic {
+  font-style: italic;
+  letter-spacing: normal;
+  white-space: normal;
+}
+.project-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.project-photo--held   { aspect-ratio: 850 / 606; }
+
+/* Campaign mockups: two social posts stacked on the left (807 × 550, 50 apart),
+   the consent postcard on the fridge on the right (647 × 889) */
+.caddy-mockups {
+  display: grid;
+  grid-template-columns: minmax(0, 807fr) minmax(0, 647fr);
+  column-gap: 46px;
+  align-items: start;
+  margin-top: 44px;
+}
+.caddy-mockups__stack { display: grid; row-gap: 50px; }
+.project-photo--social { aspect-ratio: 807 / 550; }
+.project-photo--fridge { aspect-ratio: 647 / 889; }
+.caddy-mockups + .project-ack { margin-top: 50px; }
+
+@media (max-width: 900px) {
+  .project-intro--caddyshack { grid-template-columns: minmax(0, 1fr); }
+  .project-intro--caddyshack .project-intro__text { margin-top: 0; }
+  .project-intro--caddyshack .project-intro__media { margin: 40px 0 0; }
+}
+@media (max-width: 720px) {
+  /* Keep the designed 1597 × 1200 shape so all three postcards stay in frame */
+  .project-hero--light { height: auto; aspect-ratio: 1597 / 1200; }
+  .project-title--caddyshack { padding-top: 36px; }
+  .project-intro--caddyshack { margin-top: 24px; }
+  .caddy-mockups { grid-template-columns: minmax(0, 1fr); row-gap: 20px; margin-top: 20px; }
+  .caddy-mockups__stack { row-gap: 20px; }
+  .caddy-mockups + .project-ack { margin-top: 48px; }
+}
+
+/* ==========================================================================
+   Artworks page — a quiet, museum-like gallery
+   ========================================================================== */
+
+/* Coming-soon note under the hero lockup */
+.gallery-note {
+  max-width: 560px;
+  margin: 0 auto;
+  padding-block: 0 var(--section-space);
+  text-align: center;
+}
+.gallery-note__rule {
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin: 0 auto 32px;
+  background: currentColor;
+  opacity: .35;
+}
+.gallery-note__body {
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+/* Gallery (ready for paintings): generous wall space, each work hung with a
+   soft shadow, a museum-style plaque underneath, and a gentle lift on hover */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr));
+  gap: 140px 96px;
+  align-items: end;                     /* works of different heights share a baseline */
+  padding-block: var(--section-space);
+}
+.artwork { margin: 0; }
+.artwork__frame {
+  display: block;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, .08),
+    0 30px 60px -24px rgba(0, 0, 0, .35);
+  transition: transform .9s var(--ease-expo), box-shadow .9s var(--ease-expo);
+}
+.artwork__frame img { display: block; width: 100%; height: auto; }
+@media (hover: hover) {
+  .artwork:hover .artwork__frame {
+    transform: translateY(-6px);
+    box-shadow:
+      0 4px 8px rgba(0, 0, 0, .08),
+      0 44px 80px -28px rgba(0, 0, 0, .4);
+  }
+}
+.artwork__plaque {
+  margin-top: 28px;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+}
+.artwork__title { font-weight: 700; font-style: italic; }
+.artwork__details { margin-top: 4px; opacity: .7; }
+
+@media (max-width: 720px) {
+  .gallery { gap: 72px; }
+  .gallery-note__rule { margin-bottom: 24px; }
+}
+
+/* Acknowledgement */
+.project-ack {
+  width: 600px;
+  max-width: 100%;
+  margin-top: 111px;                    /* mockups → acknowledgement (Figma) */
+}
+.project-ack__heading {
+  font-weight: 600;
+  font-size: var(--text-heading);
+  line-height: var(--lh-heading);
+}
+.project-ack__body {
+  margin-top: 24px;
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+}
+.project-ack__body + .project-ack__body { margin-top: var(--lh-body); }
+
+@media (max-width: 1100px) {
+  .project { --gutter: 48px; }
+}
+@media (max-width: 900px) {
+  /* Copy above, business cards full-bleed below */
+  .project-intro { grid-template-columns: minmax(0, 1fr); margin-right: 0; }
+  .project-intro__text { margin-top: 0; max-width: 603px; }
+  .project-intro__media { margin: 40px calc(-1 * var(--gutter)) 0; }
+  .project-ack { margin-top: 72px; }
+}
+@media (max-width: 720px) {
+  .project { --gutter: 24px; }
+  .project-hero { --header-h: 84px; }
+  .project-title { padding-top: 36px; }
+  .project-intro { margin-top: 24px; }
+  .project-intro__tagline,
+  .project-intro__body { margin-top: 14px; }
+  /* Laptop full width, bottle centred beneath it */
+  .project-mockups { aspect-ratio: auto; display: grid; justify-items: center; margin-top: 16px; }
+  .project-mockups img { position: static; height: auto; }
+  .project-mockups .project-mockups__laptop { order: -1; width: 82%; aspect-ratio: 339 / 348; margin-bottom: 12%; }
+  .project-mockups__bottle { width: 64%; aspect-ratio: 547 / 824; margin-top: -8%; }
+  .project-ack { margin-top: 48px; }
+  .project-ack__body { margin-top: 16px; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  :root { --section-space: 144px; --heading-gap: 32px; }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --gutter: 24px;
+    /* Scaled-down type scale for phones (same hierarchy, calmer sizes;
+       body gets a little more leading for reading on a narrow column) */
+    --text-heading: 20px;     --lh-heading: 24px;
+    --text-subheading: 15px;  --lh-subheading: 19px;
+    --text-body: 12px;        --lh-body: 17px;
+    --section-space: 96px;
+    --heading-gap: 24px;
+  }
+  .site-header { --header-pad: 24px; }
+  .hero { --header-h: 84px; }       /* shorter header at this size */
+  /* Same composition as desktop (tall card + two stacked images), scaled
+     down — gaps, radii and shadows shrink with it */
+  .projects { --card-radius: 20px; --card-gap: 8px; --card-open: 6; }
+  .projects__rail { height: 380px; }
+  .project-card { box-shadow: 0 2px 4px 1px rgba(0, 0, 0, .22); }
+  .project-card.is-active { box-shadow: 0 10px 22px -10px rgba(0, 0, 0, .35); }
+  .project-card__index { bottom: 18px; }
+  .project-card__caption { left: 18px; right: 18px; bottom: 18px; gap: 4px; }
+
+  /* Buttons: ~65% of desktop size, same 2:1 proportion */
+  .btn--sm { width: 132px; height: 64px; font-size: 13px; }
+  .btn { box-shadow: 0 3px 8px 2px rgba(0, 0, 0, .22); }
+  .btn:hover, .btn:focus-visible { box-shadow: 0 6px 12px 2px rgba(0, 0, 0, .25); }
+  .btn:active { box-shadow: 0 3px 8px 2px rgba(0, 0, 0, .22); }
+  .education__body { margin-top: 20px; }
+  .resume { margin-top: 32px; }       /* same rhythm as desktop: resume gap > degree→copy gap */
+  /* prompt is 12px here (½ of the original 24px), so the button is ½ size */
+  .resume .btn { width: 100px; height: 50px; margin-top: 16px; font-size: 12px; box-shadow: 0 2px 6px 2px rgba(0, 0, 0, .22); }
+  .contact__title { transform: none; }
+  /* Smaller buttons fit side by side again, like desktop */
+  .contact__links { gap: 16px; transform: none; }
+  .contact__links .btn--light { margin-top: 0; }
+}
+
+/* Narrowest phones: folded cards slim down so the open card's caption still fits */
+@media (max-width: 360px) {
+  .projects { --card-open: 8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn, .site-header, .nav a, .nav a::after, .nav__toggle, .nav__toggle span,
+  .nav ul, .nav li,
+  .project-card, .project-card img, .project-card__index, .project-card__caption, .project-card__arrow,
+  .projects__dots button { transition: none !important; }
+  .ambient__orbit, .ambient__blob { animation: none; }   /* background stays, but holds still */
+  .project-hero img, .card-stack__float { animation: none; }
+  .card-stack__card { transition: none !important; }
+}

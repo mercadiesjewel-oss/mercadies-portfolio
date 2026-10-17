@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Primer — Mercadies Portfolio</title>
+  <meta name="description" content="Primer: a Figma mobile app prototype for NDIS participant profiles to aid disability support workers.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Inter,Arial,sans-serif' font-weight='900' font-size='40' fill='%23f6f6f6'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,500;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script>
+    // Best guess before first paint (main.js then measures the real words):
+    // narrow screens start with the hamburger menu so the bar never flashes
+    if (innerWidth <= 1100) document.documentElement.classList.add('nav-compact');
+    // Hide the animated pieces before first paint so nothing flashes;
+    // main.js plays them.
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('js-intro', 'nav-intro', 'motion');
+    }
+  </script>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true">
+    <span class="ambient__orbit ambient__orbit--a"><span class="ambient__blob"></span></span>
+    <span class="ambient__orbit ambient__orbit--b"><span class="ambient__blob"></span></span>
+    <span class="ambient__orbit ambient__orbit--c"><span class="ambient__blob"></span></span>
+    <span class="ambient__orbit ambient__orbit--d"><span class="ambient__blob"></span></span>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="nav page" aria-label="Primary">
+      <a class="nav__brand" href="../index.html" aria-label="Back to the home page">M</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul id="nav-menu">
+        <li><a href="../index.html#about">About Me</a></li>
+        <li><a href="../index.html#education">Education and Experience</a></li>
+        <li><a href="../index.html#projects" class="is-current" data-default-current>Design Projects</a></li>
+        <li><a href="../artworks.html">Artworks</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="page project">
+      <section class="project-title" data-intro aria-label="Project title">
+        <h1 data-intro-shadow>
+          <span class="sr-only">Primer</span>
+          <span class="hero__chars" aria-hidden="true"><span style="--i:0">P</span><span style="--i:1">r</span><span style="--i:2">i</span><span style="--i:3">m</span><span style="--i:4">e</span><span style="--i:5">r</span></span>
+        </h1>
+      </section>
+
+      <section class="project-intro" data-reveal-group>
+        <div class="project-intro__text" data-reveal>
+          <h2 class="project-intro__heading">Mobile App Design 2026:</h2>
+          <p class="project-intro__tagline">Supporting disability support workers with participant insights</p>
+          <p class="project-intro__body">Primer is a Figma mobile app prototype designed to help disability support workers access and understand NDIS participant profiles. The app centralises crucial participant information—health needs, communication preferences, support history, and personal goals—into an intuitive, accessible interface. This makes it easier for support workers to prepare for appointments, understand individual needs, and deliver more personalised care. The design prioritises clarity, accessibility, and the human moments that matter most when supporting people with disabilities.</p>
+          <p class="project-intro__body" style="margin-top: 1.5rem; font-style: italic; opacity: .7;">This project is currently in development. Mockups and detailed case study coming soon.</p>
+        </div>
+      </section>
+
+      <section class="project-ack" data-reveal-group style="margin-top: 120px;">
+        <h2 class="project-ack__heading" data-reveal>About this project</h2>
+        <div data-reveal style="--d:1">
+          <p class="project-ack__body">Primer is a semester-long major project developed as part of my Bachelor of Creative Arts degree. It represents a deep dive into understanding the needs of disability support workers and translating those insights into thoughtful, accessible design.</p>
+          <p class="project-ack__body">More details, mockups, and the full case study will be added soon.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="page">
+      <section class="contact" id="contact" data-reveal-group>
+        <h2 class="contact__title" data-reveal>Let's Chat!</h2>
+        <div class="contact__links">
+          <a class="btn btn--dark btn--sm" href="https://www.linkedin.com/in/mercadies-mcdonald-653913278" target="_blank" rel="noopener" data-reveal style="--d:1">LinkedIn</a>
+          <a class="btn btn--light btn--sm" href="mailto:mercadiesjewel@gmail.com" data-reveal style="--d:1">Email</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../main.js"></script>
+</body>
+</html>
