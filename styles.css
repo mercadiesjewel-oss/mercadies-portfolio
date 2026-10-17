@@ -870,31 +870,65 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   transition: transform 1.4s var(--ease-card), z-index 0s linear .4s;
 }
 
-/* Mockups: laptop and drink bottle side by side across the full width.
-   Both are cut-outs on transparent backgrounds, so the products sit directly
-   on the living background. */
+/* Mockups: professional presentation of brand applied across collateral */
 .project-mockups {
-  position: relative;
-  aspect-ratio: 1597 / 824;
-  margin-inline: calc(-1 * var(--gutter));
+  display: grid;
+  gap: var(--section-space);
+  grid-template-columns: 1fr;
+  margin-top: var(--section-space);
 }
-.project-mockups img {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  object-fit: contain;
-}
-.project-mockups__bottle { right: 0; width: 34.25%; }   /* 547 / 1597 */
-/* Laptop: scaled up from the design (≈ 590 → 680px wide) so it stands as tall
-   as the bottle (≈ 700px at full width) and carries the same visual weight;
-   centred on the same point as in Figma. The image is cropped tight to the
-   laptop itself. */
-.project-mockups .project-mockups__laptop {
-  left: 16.9%;
-  top: 7.2%;
-  width: 42.6%;                         /* ≈ 680 / 1597 */
+
+/* Hero: business cards scatter mockup full width */
+.project-mockups__hero {
+  width: 100%;
   height: auto;
-  aspect-ratio: 339 / 348;
+  display: block;
+  border-radius: 8px;
+  background: #fff;
+  padding: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Pair: business cards front/back mockup */
+.project-mockups__pair {
+  display: flex;
+  justify-content: center;
+}
+.project-mockups__pair img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  background: #fff;
+  padding: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Devices: iPhone and MacBook side by side */
+.project-mockups__devices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.project-mockups__iphone,
+.project-mockups__macbook {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  background: #fff;
+  padding: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive: stack devices on smaller screens */
+@media (max-width: 900px) {
+  .project-mockups__devices {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }
 
 /* ---------- Caddyshack Project page (Figma frame 18:104) ---------- */
