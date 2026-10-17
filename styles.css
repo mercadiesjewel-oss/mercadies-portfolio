@@ -773,6 +773,24 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   margin-right: calc(-1 * var(--gutter));
 }
 .project-intro__text { margin-top: 59px; }
+.project-intro__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-intro__mockup {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.project-intro__mockup:hover {
+  transform: scale(1.05) translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
 .project-intro__heading {
   font-weight: 800;
   font-size: var(--text-heading);
