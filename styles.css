@@ -777,6 +777,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-right: var(--gutter);
 }
 .project-intro__mockup {
   width: 100%;
