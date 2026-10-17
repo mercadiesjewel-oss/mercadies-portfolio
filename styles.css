@@ -884,9 +884,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   height: auto;
   display: block;
   border-radius: 8px;
-  background: #fff;
-  padding: 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* Pair: business cards front/back mockup */
@@ -900,9 +897,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   height: auto;
   display: block;
   border-radius: 8px;
-  background: #fff;
-  padding: 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* Devices: iPhone and MacBook side by side */
@@ -918,9 +912,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   height: auto;
   display: block;
   border-radius: 8px;
-  background: #fff;
-  padding: 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* Responsive: stack devices on smaller screens */
