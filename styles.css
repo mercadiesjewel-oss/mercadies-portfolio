@@ -931,6 +931,13 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   height: auto;
   display: block;
   border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.project-mockups__iphone:hover,
+.project-mockups__macbook:hover {
+  transform: scale(1.05) translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 /* Responsive: stack devices on smaller screens */
