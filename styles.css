@@ -348,7 +348,9 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 .hero__title {
   margin: .07em 0 .05em;
+  font-family: var(--font-serif);
   font-size: 1em;
+  font-weight: 700;
   line-height: .8;                    /* caps only, so no room needed for descenders */
   letter-spacing: -.02em;
   text-transform: uppercase;
