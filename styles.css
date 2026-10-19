@@ -15,7 +15,7 @@
   /* Type scale for content text (hero, nav and buttons keep their own sizes) */
   --text-heading: 36px;     --lh-heading: 42px;
   --text-subheading: 24px;  --lh-subheading: 29px;
-  --text-body: 16px;        --lh-body: 28px;
+  --text-body: 16px;        --lh-body: 30px;
 
   --space-200: 8px;
   --space-300: 12px;
@@ -456,6 +456,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: var(--text-heading);
   line-height: var(--lh-heading);
   letter-spacing: -0.5px;
+  text-wrap: balance;
 }
 
 /* ---------- Section rhythm ---------- */
@@ -485,6 +486,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: var(--text-body);
   line-height: var(--lh-body);
   margin-top: 0;
+  text-wrap: pretty;
 }
 .intro-about__media {
   display: flex;
@@ -510,6 +512,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-weight: 400;
   font-size: var(--text-body);
   line-height: var(--lh-body);
+  text-wrap: pretty;
 }
 
 /* ---------- Education ---------- */
@@ -530,6 +533,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-weight: 400;
   font-size: var(--text-body);
   line-height: var(--lh-body);
+  text-wrap: pretty;
 }
 /* Resume prompt stacks under the copy on the same left edge. The 48px gap is
    wider than the 32px between degree and copy (so it reads as its own beat)
@@ -1110,7 +1114,8 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 .gallery-note__body {
   font-weight: 400;
   font-size: var(--text-body);
-  line-height: 1.6;
+  line-height: var(--lh-body);
+  text-wrap: pretty;
 }
 
 /* Gallery (ready for paintings): generous wall space, each work hung with a
@@ -1169,6 +1174,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-weight: 400;
   font-size: var(--text-body);
   line-height: var(--lh-body);
+  text-wrap: pretty;
 }
 .project-ack__body + .project-ack__body { margin-top: var(--lh-body); }
 
