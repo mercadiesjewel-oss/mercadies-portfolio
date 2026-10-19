@@ -709,7 +709,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
     transform: translateX(2px);
   }
 }
-}
 .resume {
   margin-top: var(--space-700);
 }
