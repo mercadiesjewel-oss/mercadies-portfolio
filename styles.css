@@ -450,7 +450,56 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 /* ---------- Section rhythm ---------- */
 .about, .education, .projects, .contact { padding-block: var(--section-space); }
 
+/* ---------- Intro About (Quick About + Photo) ---------- */
+.intro-about {
+  display: grid;
+  grid-template-columns: minmax(0, 600px) minmax(0, 1fr);
+  column-gap: 80px;
+  align-items: center;
+  padding-block: var(--section-space);
+}
+.intro-about__text {
+  padding-right: var(--gutter);
+}
+.intro-about__tagline {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.intro-about__body {
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  margin-top: 0;
+}
+.intro-about__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.intro-about__photo {
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, var(--surface) 0%, #e8e8e8 100%);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='50' text-anchor='middle' dominant-baseline='middle' fill='rgba(0,0,0,0.2)' font-size='12' font-family='system-ui'%3EAdd your photo%3C/text%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 /* ---------- About ---------- */
+.about {
+  padding-block: var(--section-space);
+}
 .about__body {
   width: 600px;
   max-width: 100%;
