@@ -19,7 +19,11 @@
       "Bash(git checkout *)",
       "Bash(grep -E \"px$|px;\")",
       "Bash(git commit -m 'Performance audit: remove filter animations, will-change hints, reduce blur overhead *)",
-      "Bash(git commit -m 'Cohesion & Polish: convert hard-coded button sizes to padding tokens *)"
+      "Bash(git commit -m 'Cohesion & Polish: convert hard-coded button sizes to padding tokens *)",
+      "PowerShell(Get-Process powershell)",
+      "PowerShell(Stop-Process -Force -ErrorAction SilentlyContinue)",
+      "Bash(grep -n \"\\\\\\\\-\\\\\\\\-ease-soft:\" styles.css)",
+      "Bash(git commit -m 'Fix: move easing variables to root scope for global button transitions *)"
     ]
   }
 }
