@@ -1,28 +1,4 @@
-/* Self-hosted Fraunces font */
-@font-face {
-  font-family: 'Fraunces';
-  src: url('/assets/fonts/fraunces-400.ttf') format('truetype');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Fraunces';
-  src: url('/assets/fonts/fraunces-500.ttf') format('truetype');
-  font-weight: 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Fraunces';
-  src: url('/assets/fonts/fraunces-600.ttf') format('truetype');
-  font-weight: 600;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Fraunces';
-  src: url('/assets/fonts/fraunces-700.ttf') format('truetype');
-  font-weight: 700;
-  font-display: swap;
-}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap');
 
 /* Design tokens (Hermès-inspired luxury system) */
 :root {
@@ -39,7 +15,7 @@
   --font-display: "Articulat CF", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --font-serif: "Garamond", "Georgia", serif;  /* Secondary serif font */
-  --font-hero: "Fraunces", "Georgia", serif;   /* Hero display font */
+  --font-hero: "Playfair Display", "Georgia", serif;   /* Hero display font */
 
   /* Type scale for content text (hero, nav and buttons keep their own sizes) */
   --text-heading: 36px;     --lh-heading: 42px;
