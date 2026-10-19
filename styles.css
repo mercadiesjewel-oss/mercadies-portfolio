@@ -65,9 +65,11 @@ h1, h2, h3, p { margin: 0; }
 a {
   color: inherit;
   text-decoration: none;
-  transition: color .3s var(--ease-soft), opacity .3s var(--ease-soft);
+  transition: color .25s ease-out, opacity .25s ease-out;
 }
-a:hover { opacity: .75; }
+a:hover {
+  opacity: .8;
+}
 img { display: block; }
 
 /* Paper grain — minimized for Apple aesthetic clarity */
@@ -232,8 +234,10 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 /* "M" mark: always visible, takes you back to the top of the landing page */
 /* Soft hover: the other links fade back slightly while the hovered one lifts and underlines */
 @media (hover: hover) {
-  .nav:hover a:not(:hover) { opacity: .55; }
-  .nav a:hover { transform: translateY(-1px); }
+  .nav:hover a:not(:hover) { opacity: .6; }
+  .nav a:hover {
+    transform: translateY(-2px);
+  }
 }
 .nav a:focus-visible {
   transform: translateY(-1px);
@@ -271,11 +275,20 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   cursor: pointer;
   transition: background-color .3s var(--ease-soft);
 }
-.nav__toggle:hover {
-  background-color: rgba(0, 0, 0, .1);
+.nav__toggle {
+  transition: background-color 0.2s ease-out, transform 0.2s ease-out;
 }
-.nav__toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.nav__toggle { transition: background-color .3s ease-out; }
+.nav__toggle:hover {
+  background-color: rgba(0, 0, 0, .08);
+  transform: scale(1.08);
+}
+.nav__toggle:active {
+  transform: scale(0.96);
+}
+.nav__toggle:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
 .nav__toggle span {
   position: absolute;
   left: 11px;
@@ -464,7 +477,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
    duration and spacing. */
 .motion [data-reveal-group]:not(.is-revealed) [data-reveal] { opacity: 0; }
 .motion .is-revealed [data-reveal] {
-  animation: reveal-up 0.6s ease-out calc(var(--d, 0) * 80ms) both;
+  animation: reveal-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) calc(var(--d, 0) * 100ms) both;
 }
 @keyframes reveal-up {
   from { opacity: 0; }
@@ -472,16 +485,16 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 
 @keyframes brick-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
 }
 @keyframes drop-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
 }
 @keyframes rise-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
 }
 @keyframes fade-in {
   from { opacity: 0; }
@@ -624,10 +637,15 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   margin-top: var(--space-600);
 }
 .resume__prompt {
-  font-weight: 600;                   /* semibold italic keeps it a step above body copy */
+  font-weight: 600;
   font-style: italic;
   font-size: var(--text-body);
   line-height: var(--lh-body);
+  color: rgba(0, 0, 0, 0.8);
+  transition: color 0.3s ease-out;
+}
+.resume:hover .resume__prompt {
+  color: rgba(0, 0, 0, 1);
 }
 .resume .btn {
   margin-top: var(--space-300);
@@ -655,17 +673,17 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .12);
   }
   .btn:focus-visible {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, .12);
   }
 }
 .btn:active {
-  transform: translateY(-1px) scale(0.98);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
+  transform: translateY(-1px) scale(0.96);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
 }
 .btn:focus-visible { 
   outline: 2px solid var(--ink); 
@@ -729,7 +747,11 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {
-    opacity: 0.95;
+    opacity: 1;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+  }
+  .project-card:hover .project-card__cta {
+    transform: translateX(3px);
   }
 }
 .project-card.is-active {
