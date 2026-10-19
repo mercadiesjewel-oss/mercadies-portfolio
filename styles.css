@@ -60,7 +60,7 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  background: linear-gradient(to bottom, #f5f5f5 0%, #f0e8e5 100%);
+  background: linear-gradient(to bottom, #f5f5f5 0%, #e0c8c4 100%);
   background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-display);
