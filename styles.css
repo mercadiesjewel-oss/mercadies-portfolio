@@ -345,7 +345,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 .hero__eyebrow,
 .hero__year {
-  font-size: max(.1875em, 12px);      /* 24 : 128 — the original ratio to the name (12px floor for phones) */
+  font-size: max(.12em, 10px);        /* Reduced size to emphasize the name */
   font-weight: 400;
   line-height: 1.2;
 }
