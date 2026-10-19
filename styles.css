@@ -1515,6 +1515,11 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   .contact__title { transform: none; }
   /* Smaller buttons fit side by side again, like desktop */
   .contact__links { gap: 16px; transform: none; }
+  .contact__links .btn { width: fit-content; }
+  .contact__links .btn:hover, .contact__links .btn:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(42, 42, 42, 0.14);
+  }
   .contact__links .btn--light { margin-top: 0; }
 }
 
