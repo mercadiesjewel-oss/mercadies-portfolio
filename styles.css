@@ -377,7 +377,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   --header-h: 110px;                  /* nav bar height at the top of the page */
   min-height: min(calc(100svh - var(--header-h)), 60vw);
   padding-block: min(80px, 8vw);
-  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--accent) 8%, var(--bg)) 100%);
 }
 /* Lockup: everything is sized in em off one font-size, so the three pieces
    scale together as a single unit and never shift relative to each other.
@@ -591,6 +590,26 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   right: 10%;
   height: 1px;
   background: linear-gradient(to right, transparent, var(--surface) 20%, var(--surface) 80%, transparent);
+}
+
+/* Section-specific background colors */
+.hero {
+  background: var(--bg);
+}
+.intro-about {
+  background: var(--bg);
+}
+.about {
+  background: var(--bg);
+}
+.education {
+  background: var(--bg);
+}
+.projects {
+  background: #faf8f6;
+}
+.contact {
+  background: #faf7f5;
 }
 
 /* ---------- Intro About (Quick About + Photo) ---------- */
@@ -860,7 +879,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   --card-radius: 32px;
   --card-gap: var(--space-200);
   --card-open: 4;                                /* open card = 4× a folded one */
-  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--ink) 3%, var(--bg)) 100%);
 }
 .projects__rail {
   display: flex;
@@ -1046,9 +1064,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   .contact__title:hover {
     color: var(--accent);
   }
-}
-.contact {
-  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--accent) 5%, var(--bg)) 100%);
 }
 .contact__links {
   display: flex;

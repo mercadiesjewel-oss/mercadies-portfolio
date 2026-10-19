@@ -38,7 +38,8 @@
       "mcp__visualize__read_me",
       "mcp__visualize__show_widget",
       "Bash(git commit -m 'Implement Hermès-inspired luxury design system *)",
-      "Bash(git commit -m 'Add burgundy buttons and section background gradients *)"
+      "Bash(git commit -m 'Add burgundy buttons and section background gradients *)",
+      "Bash(git commit -m 'Refine section backgrounds with subtle color shifts *)"
     ]
   }
 }
