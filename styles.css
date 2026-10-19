@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&family=Garamond:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap');
-
 /* Design tokens (Hermès-inspired luxury system) */
 :root {
   --bg: #f5f5f5;               /* off-white, clean and exclusive */
@@ -15,7 +13,7 @@
   --font-display: "Articulat CF", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --font-serif: "Garamond", "Georgia", serif;  /* Secondary serif font */
-  --font-hero: "Fraunces", "Georgia", serif;   /* Hero display font */
+  --font-hero: "Georgia", serif;   /* Hero display font */
 
   /* Type scale for content text (hero, nav and buttons keep their own sizes) */
   --text-heading: 36px;     --lh-heading: 42px;
