@@ -14,7 +14,7 @@
   /* Type scale for content text (hero, nav and buttons keep their own sizes) */
   --text-heading: 36px;     --lh-heading: 42px;
   --text-subheading: 24px;  --lh-subheading: 29px;
-  --text-body: 16px;        --lh-body: 24px;
+  --text-body: 16px;        --lh-body: 28px;
 
   --space-200: 8px;
   --space-300: 12px;
