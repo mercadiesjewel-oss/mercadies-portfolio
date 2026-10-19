@@ -17,7 +17,8 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(curl -s http://localhost:8000)",
       "Bash(git checkout *)",
-      "Bash(grep -E \"px$|px;\")"
+      "Bash(grep -E \"px$|px;\")",
+      "Bash(git commit -m 'Performance audit: remove filter animations, will-change hints, reduce blur overhead *)"
     ]
   }
 }

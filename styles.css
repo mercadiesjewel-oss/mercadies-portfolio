@@ -99,7 +99,6 @@ img { display: block; }
   top: var(--y);
   width: 0;
   height: 0;
-  will-change: transform;
   animation: orbit var(--t1) linear infinite var(--dir, normal);
   animation-delay: var(--phase, 0s);
 }
@@ -119,7 +118,6 @@ img { display: block; }
     color-mix(in srgb, var(--tone) 5%, transparent) 86%,
     transparent 100%;
   background: var(--shape);
-  will-change: transform;
   --r1: var(--r2);                    /* inner circle reuses the orbit keyframes */
   animation:
     orbit var(--t2) linear infinite reverse,
@@ -191,8 +189,8 @@ img { display: block; }
 .site-header.is-stuck,
 .site-header.is-open {
   background: rgba(246, 246, 246, .62);
-  -webkit-backdrop-filter: blur(16px) saturate(1.1);
-  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(8px) saturate(1.1);
+  backdrop-filter: blur(8px) saturate(1.1);
 }
 .site-header.is-stuck { box-shadow: 0 6px 18px -10px rgba(0, 0, 0, .25); }
 /* Nav jumps land each heading ~90px from the top, just under the bar */
@@ -464,17 +462,17 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 
 @keyframes brick-in {
-  from { opacity: 0; transform: translateY(.34em) scale(.96); filter: blur(.05em); }
+  from { opacity: 0; transform: translateY(.34em) scale(.96); }
   60%  { opacity: 1; }
-  to   { opacity: 1; transform: none; filter: blur(0); }
+  to   { opacity: 1; transform: none; }
 }
 @keyframes drop-in {
-  from { opacity: 0; transform: translateY(-.9em); filter: blur(3px); }
-  to   { opacity: 1; transform: none; filter: blur(0); }
+  from { opacity: 0; transform: translateY(-.9em); }
+  to   { opacity: 1; transform: none; }
 }
 @keyframes rise-in {
-  from { opacity: 0; transform: translateY(.9em); filter: blur(3px); }
-  to   { opacity: 1; transform: none; filter: blur(0); }
+  from { opacity: 0; transform: translateY(.9em); }
+  to   { opacity: 1; transform: none; }
 }
 @keyframes fade-in {
   from { opacity: 0; }
