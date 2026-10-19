@@ -8,12 +8,13 @@
 
   /* Articulat CF is a commercial typeface; Inter is the fallback */
   --font-display: "Articulat CF", "Inter", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;  /* --sds-typography-body-font-family */
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-serif: "Garamond", "Georgia", serif;  /* Secondary serif font */
 
   /* Type scale for content text (hero, nav and buttons keep their own sizes) */
-  --text-heading: 32px;     --lh-heading: 39px;
+  --text-heading: 36px;     --lh-heading: 42px;
   --text-subheading: 24px;  --lh-subheading: 29px;
-  --text-body: 16px;        --lh-body: 19px;
+  --text-body: 16px;        --lh-body: 24px;
 
   --space-200: 8px;
   --space-300: 12px;
@@ -445,7 +446,13 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 
 /* ---------- Section headings ---------- */
-.section-title { font-weight: 900; font-size: var(--text-heading); line-height: var(--lh-heading); }
+.section-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: var(--text-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: -0.5px;
+}
 
 /* ---------- Section rhythm ---------- */
 .about, .education, .projects, .contact { padding-block: var(--section-space); }
