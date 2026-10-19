@@ -23,7 +23,8 @@
       "PowerShell(Get-Process powershell)",
       "PowerShell(Stop-Process -Force -ErrorAction SilentlyContinue)",
       "Bash(grep -n \"\\\\\\\\-\\\\\\\\-ease-soft:\" styles.css)",
-      "Bash(git commit -m 'Fix: move easing variables to root scope for global button transitions *)"
+      "Bash(git commit -m 'Fix: move easing variables to root scope for global button transitions *)",
+      "Bash(git commit -m 'Add comprehensive smooth animations throughout the site *)"
     ]
   }
 }
