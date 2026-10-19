@@ -1,12 +1,13 @@
-/* Design tokens (from Figma: Simple Design System + Launch frame) */
+/* Design tokens (Hermès-inspired luxury system) */
 :root {
-  --bg: #fafafa;               /* warm off-white, premium feel */
-  --ink: #1a1a1a;              /* warm charcoal instead of pure black */
-  --ink-light: #2a2a2a;        /* lighter charcoal for depth */
-  --surface: #e8e8e8;          /* warmer grays for premium aesthetic */
-  --surface-light: #f0f0f0;
+  --bg: #f5f5f5;               /* off-white, clean and exclusive */
+  --ink: #2a2a2a;              /* charcoal mid for warmth and elegance */
+  --ink-light: #3d3d3d;        /* warm grey for depth */
+  --accent: #6b2c3e;           /* rich burgundy with cherry undertone */
+  --surface: #e8e8e8;          /* subtle grey for cards and elements */
+  --surface-light: #fafafa;
   --on-brand: #f5f5f5;
-  --btn-light: #fff;
+  --btn-light: #f5f5f5;
 
   /* Articulat CF is a commercial typeface; Inter is the fallback */
   --font-display: "Articulat CF", "Inter", system-ui, sans-serif;
@@ -35,10 +36,10 @@
 
   --radius-200: 8px;
 
-  --shadow-card: 0 8px 24px rgba(26, 26, 26, 0.12);
-  --shadow-btn: 0 6px 14px rgba(26, 26, 26, 0.15);
-  --shadow-sm: 0 2px 8px rgba(26, 26, 26, 0.08);
-  --shadow-lg: 0 12px 40px rgba(26, 26, 26, 0.16);
+  --shadow-card: 0 2px 12px rgba(42, 42, 42, 0.08);
+  --shadow-btn: 0 4px 12px rgba(42, 42, 42, 0.12);
+  --shadow-sm: 0 1px 4px rgba(42, 42, 42, 0.06);
+  --shadow-lg: 0 8px 24px rgba(42, 42, 42, 0.1);
 
   /* Side margin: 100px at full width (as designed), easing smoothly down to
      48px on tablets — no sudden jumps, so the nav switches to the hamburger
@@ -51,8 +52,8 @@
 
   /* Section rhythm: sections are separated by generous, even space alone
      (no rules), with the same gap from heading to content everywhere */
-  --section-space: 200px;
-  --heading-gap: 40px;
+  --section-space: 240px;
+  --heading-gap: 56px;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -241,12 +242,12 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   .nav:hover a:not(:hover) { opacity: .5; }
   .nav a:hover {
     transform: translateY(-2px);
-    color: var(--ink-light);
+    color: var(--accent);
   }
 }
 .nav a:focus-visible {
   transform: translateY(-1px);
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
 .nav a::after {
@@ -254,7 +255,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   position: absolute;
   left: 0; right: 0; bottom: 10px;
   height: 2px;
-  background: currentColor;
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: right;
   transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -553,11 +554,26 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   line-height: var(--lh-heading);
   letter-spacing: -0.5px;
   text-wrap: balance;
-  transition: color 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: color 0.5s ease-out;
+  position: relative;
+  padding-bottom: var(--space-200);
+}
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.5s ease-out;
 }
 @media (hover: hover) {
   .section-title:hover {
-    color: var(--ink-light);
+    color: var(--accent);
+  }
+  .section-title:hover::after {
+    width: 100%;
   }
 }
 
@@ -651,7 +667,13 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 
 /* ---------- Education ---------- */
-.education__layout { margin-top: var(--heading-gap); }
+.education__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-600);
+  align-items: flex-start;
+  margin-top: var(--heading-gap);
+}
 .education__degree {
   font-weight: 700;
   font-size: var(--text-subheading);
@@ -771,12 +793,12 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(26, 26, 26, 0.18);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(42, 42, 42, 0.14);
   }
   .btn:focus-visible {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(26, 26, 26, 0.18);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(42, 42, 42, 0.14);
   }
 }
 .btn:active {
@@ -790,40 +812,40 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 .btn--dark {
   background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
   color: var(--on-brand);
-  box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.08);
   position: relative;
 }
 .btn--dark::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.08));
   border-radius: inherit;
   pointer-events: none;
 }
 .btn--dark:hover, .btn--dark:focus-visible {
-  background: linear-gradient(135deg, var(--ink-light) 0%, #353535 100%);
-  box-shadow: var(--shadow-btn), 0 0 20px rgba(26, 26, 26, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, var(--ink-light) 0%, #3a3a3a 100%);
+  box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 .btn--light {
   background: linear-gradient(135deg, var(--btn-light) 0%, #fafafa 100%);
   color: var(--ink);
-  border: 1px solid var(--surface);
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(42, 42, 42, 0.08);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.6);
   position: relative;
 }
 .btn--light::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.02));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.01));
   border-radius: inherit;
   pointer-events: none;
 }
 .btn--light:hover, .btn--light:focus-visible {
   background: linear-gradient(135deg, var(--surface-light) 0%, #f5f5f5 100%);
-  border-color: var(--ink-light);
-  box-shadow: var(--shadow-sm), 0 0 16px rgba(26, 26, 26, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-color: rgba(42, 42, 42, 0.15);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 .btn--sm { padding: var(--space-300) var(--space-400); font-size: 14px; }
 
@@ -1016,6 +1038,12 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   line-height: var(--lh-heading);
   text-align: center;
   transform: translateX(2px);
+  transition: color 0.5s ease-out;
+}
+@media (hover: hover) {
+  .contact__title:hover {
+    color: var(--accent);
+  }
 }
 .contact__links {
   display: flex;

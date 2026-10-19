@@ -34,7 +34,10 @@
       "Bash(git commit -m 'Add premium luxury feel: charcoal palette, refined shadows, and premium interactions *)",
       "Bash(git commit -m 'Implement GSAP ScrollTrigger animations for Awwwards-quality choreography *)",
       "Bash(git commit -m 'Redesign resume section: premium grid layout with better proportions *)",
-      "Bash(git commit -m 'Fix resume section spacing: tighter button gap, more breathing room from text *)"
+      "Bash(git commit -m 'Fix resume section spacing: tighter button gap, more breathing room from text *)",
+      "mcp__visualize__read_me",
+      "mcp__visualize__show_widget",
+      "Bash(git commit -m 'Implement Hermès-inspired luxury design system *)"
     ]
   }
 }
