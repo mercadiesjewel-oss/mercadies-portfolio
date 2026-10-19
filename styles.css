@@ -667,20 +667,24 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
     inset: 0;
     background: rgba(255, 255, 255, 0);
     border-radius: inherit;
-    transition: background .3s var(--ease-soft);
+    transition: background 0.3s var(--ease-soft);
     pointer-events: none;
   }
   .btn:hover::before {
     background: rgba(255, 255, 255, .08);
   }
-  .btn:hover, .btn:focus-visible {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px 6px rgba(0, 0, 0, .32);
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+  }
+  .btn:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
   }
 }
 .btn:active {
-  transform: translateY(-2px) scale(0.98);
-  box-shadow: 0 6px 16px 2px rgba(0, 0, 0, .25);
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
 }
 .btn:focus-visible { 
   outline: 2px solid var(--ink); 
@@ -740,7 +744,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   background: var(--surface);
   box-shadow: var(--shadow-card);
   isolation: isolate;
-  transition: box-shadow .6s var(--ease-settle), transform .3s var(--ease-soft), filter .4s var(--ease-soft);
+  transition: flex-grow 0.8s var(--ease-settle), box-shadow 0.6s var(--ease-settle), transform 0.3s var(--ease-soft), filter 0.4s var(--ease-soft);
 }
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {
@@ -750,6 +754,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 .project-card.is-active {
   flex-grow: var(--card-open);
   box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .35);
+  transition: flex-grow 0.8s var(--ease-lux), box-shadow 0.6s var(--ease-settle), transform 0.3s var(--ease-soft), filter 0.4s var(--ease-soft);
 }
 .project-card:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 
@@ -762,9 +767,13 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   object-fit: cover;
   transform: scale(1.14);
   filter: saturate(.55) brightness(.88);
-  transition: transform 1.4s var(--ease-settle), filter .9s var(--ease-settle);
+  transition: transform 1.6s var(--ease-lux), filter 1.2s var(--ease-settle);
 }
-.project-card.is-active img { transform: scale(1); filter: none; }
+.project-card.is-active img {
+  transform: scale(1);
+  filter: none;
+  transition: transform 1.6s var(--ease-lux), filter 1.2s var(--ease-settle);
+}
 
 /* Soft scrim so white type stays legible */
 .project-card::after {
@@ -1338,8 +1347,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   .btn:active { box-shadow: 0 3px 8px 2px rgba(0, 0, 0, .22); }
   .education__body { margin-top: 20px; }
   .resume { margin-top: 32px; }       /* same rhythm as desktop: resume gap > degree→copy gap */
-  /* prompt is 12px here (½ of the original 24px), so the button is ½ size */
-  .resume .btn { width: 100px; height: 50px; margin-top: 16px; font-size: 12px; box-shadow: 0 2px 6px 2px rgba(0, 0, 0, .22); }
+  .resume .btn { margin-top: 16px; font-size: 12px; box-shadow: 0 2px 6px 2px rgba(0, 0, 0, .22); }
   .contact__title { transform: none; }
   /* Smaller buttons fit side by side again, like desktop */
   .contact__links { gap: 16px; transform: none; }

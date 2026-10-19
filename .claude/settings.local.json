@@ -24,7 +24,9 @@
       "PowerShell(Stop-Process -Force -ErrorAction SilentlyContinue)",
       "Bash(grep -n \"\\\\\\\\-\\\\\\\\-ease-soft:\" styles.css)",
       "Bash(git commit -m 'Fix: move easing variables to root scope for global button transitions *)",
-      "Bash(git commit -m 'Add comprehensive smooth animations throughout the site *)"
+      "Bash(git commit -m 'Add comprehensive smooth animations throughout the site *)",
+      "Bash(grep -n \"\\\\\\\\-\\\\\\\\-card-open\" styles.css)",
+      "Bash(git commit -m 'Fix project gallery animations and button consistency *)"
     ]
   }
 }
