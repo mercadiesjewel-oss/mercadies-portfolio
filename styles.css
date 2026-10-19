@@ -377,6 +377,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   --header-h: 110px;                  /* nav bar height at the top of the page */
   min-height: min(calc(100svh - var(--header-h)), 60vw);
   padding-block: min(80px, 8vw);
+  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--accent) 8%, var(--bg)) 100%);
 }
 /* Lockup: everything is sized in em off one font-size, so the three pieces
    scale together as a single unit and never shift relative to each other.
@@ -810,21 +811,21 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   outline-offset: 4px;
 }
 .btn--dark {
-  background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, #5a2335 100%);
   color: var(--on-brand);
-  box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   position: relative;
 }
 .btn--dark::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.08));
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.06));
   border-radius: inherit;
   pointer-events: none;
 }
 .btn--dark:hover, .btn--dark:focus-visible {
-  background: linear-gradient(135deg, var(--ink-light) 0%, #3a3a3a 100%);
+  background: linear-gradient(135deg, #5a2335 0%, #4a1a2a 100%);
   box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 .btn--light {
@@ -859,6 +860,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   --card-radius: 32px;
   --card-gap: var(--space-200);
   --card-open: 4;                                /* open card = 4× a folded one */
+  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--ink) 3%, var(--bg)) 100%);
 }
 .projects__rail {
   display: flex;
@@ -1044,6 +1046,9 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   .contact__title:hover {
     color: var(--accent);
   }
+}
+.contact {
+  background: linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--accent) 5%, var(--bg)) 100%);
 }
 .contact__links {
   display: flex;
