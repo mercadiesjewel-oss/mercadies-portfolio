@@ -1045,6 +1045,16 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   margin-top: var(--heading-gap);
   transform: translateX(-4px);
 }
+.contact__links .btn {
+  box-shadow: var(--shadow-btn);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease-out, background-color 0.4s ease-out, color 0.4s ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .contact__links .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(42, 42, 42, 0.14);
+  }
+}
 
 /* ==========================================================================
    Project pages (Figma: "Flowstate Studios" frame, 1597px wide)
