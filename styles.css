@@ -1046,13 +1046,20 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   transform: translateX(-4px);
 }
 .contact__links .btn {
-  width: fit-content;
+  width: 120px;
   box-shadow: var(--shadow-btn);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease-out, background-color 0.4s ease-out, color 0.4s ease-out;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease-out, background 0.4s ease-out, color 0.4s ease-out;
 }
-.contact__links .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(42, 42, 42, 0.14);
+.contact__links .btn--dark:hover, .contact__links .btn--dark:focus-visible {
+  background: linear-gradient(135deg, #5a2335 0%, #4a1a2a 100%);
+  box-shadow: 0 12px 28px rgba(42, 42, 42, 0.18);
+  transform: translateY(-5px);
+}
+.contact__links .btn--light:hover, .contact__links .btn--light:focus-visible {
+  background: linear-gradient(135deg, var(--surface-light) 0%, #f5f5f5 100%);
+  border-color: rgba(42, 42, 42, 0.15);
+  box-shadow: 0 12px 28px rgba(42, 42, 42, 0.12);
+  transform: translateY(-5px);
 }
 
 /* ==========================================================================
@@ -1515,7 +1522,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   .contact__title { transform: none; }
   /* Smaller buttons fit side by side again, like desktop */
   .contact__links { gap: 16px; transform: none; }
-  .contact__links .btn { width: fit-content; }
   .contact__links .btn:hover, .contact__links .btn:focus-visible {
     transform: translateY(-3px);
     box-shadow: 0 12px 28px rgba(42, 42, 42, 0.14);
