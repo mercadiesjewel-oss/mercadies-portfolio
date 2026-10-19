@@ -1,8 +1,10 @@
 /* Design tokens (from Figma: Simple Design System + Launch frame) */
 :root {
-  --bg: #f6f6f6;               /* canvas under the 10% white frame fill */
-  --ink: #000;
-  --surface: #d9d9d9;
+  --bg: #fafafa;               /* warm off-white, premium feel */
+  --ink: #1a1a1a;              /* warm charcoal instead of pure black */
+  --ink-light: #2a2a2a;        /* lighter charcoal for depth */
+  --surface: #e8e8e8;          /* warmer grays for premium aesthetic */
+  --surface-light: #f0f0f0;
   --on-brand: #f5f5f5;
   --btn-light: #fff;
 
@@ -33,8 +35,10 @@
 
   --radius-200: 8px;
 
-  --shadow-card: 0 4px 5px 2px rgba(0, 0, 0, .25);
-  --shadow-btn: 0 4px 10.9px 4px rgba(0, 0, 0, .25);
+  --shadow-card: 0 8px 24px rgba(26, 26, 26, 0.12);
+  --shadow-btn: 0 6px 14px rgba(26, 26, 26, 0.15);
+  --shadow-sm: 0 2px 8px rgba(26, 26, 26, 0.08);
+  --shadow-lg: 0 12px 40px rgba(26, 26, 26, 0.16);
 
   /* Side margin: 100px at full width (as designed), easing smoothly down to
      48px on tablets — no sudden jumps, so the nav switches to the hamburger
@@ -548,6 +552,12 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   line-height: var(--lh-heading);
   letter-spacing: -0.5px;
   text-wrap: balance;
+  transition: color 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@media (hover: hover) {
+  .section-title:hover {
+    color: var(--ink-light);
+  }
 }
 
 /* ---------- Section rhythm ---------- */
@@ -560,6 +570,12 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   column-gap: var(--space-800);
   align-items: center;
   padding-block: var(--section-space);
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@media (hover: hover) {
+  .intro-about:hover {
+    opacity: 1;
+  }
 }
 .intro-about__text {
   padding-right: var(--gutter);
@@ -613,6 +629,12 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-weight: 700;
   font-size: var(--text-subheading);
   line-height: var(--lh-subheading);
+  transition: color 0.5s ease-out;
+}
+@media (hover: hover) {
+  .education:hover .education__degree {
+    color: var(--ink-light);
+  }
 }
 /* Each line is its own block; the degree can only break between
    "Bachelor of Creative Arts" and "(Visual Arts and Design)", never mid-phrase */
@@ -635,6 +657,15 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   flex-direction: column;
   align-items: flex-start;
   margin-top: var(--space-600);
+  padding: var(--space-400);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0);
+  transition: background 0.5s ease-out;
+}
+@media (hover: hover) {
+  .resume:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
 }
 .resume__prompt {
   font-weight: 600;
@@ -673,17 +704,17 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 @media (hover: hover) and (pointer: fine) {
   .btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, .15);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(26, 26, 26, 0.18);
   }
   .btn:focus-visible {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, .15);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(26, 26, 26, 0.18);
   }
 }
 .btn:active {
   transform: translateY(-2px) scale(0.96);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, .12);
+  box-shadow: 0 8px 16px rgba(26, 26, 26, 0.12);
 }
 .btn:focus-visible { 
   outline: 2px solid var(--ink); 
@@ -692,18 +723,20 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 .btn--dark {
   background: var(--ink);
   color: var(--on-brand);
+  box-shadow: var(--shadow-btn);
 }
 .btn--dark:hover, .btn--dark:focus-visible {
-  background: #1a1a1a;
+  background: var(--ink-light);
 }
 .btn--light {
   background: var(--btn-light);
   color: var(--ink);
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--surface);
+  box-shadow: var(--shadow-sm);
 }
 .btn--light:hover, .btn--light:focus-visible {
-  background: #fafafa;
-  border-color: #999;
+  background: var(--surface-light);
+  border-color: var(--ink-light);
 }
 .btn--sm { padding: var(--space-300) var(--space-400); font-size: 14px; }
 
@@ -743,16 +776,22 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   background: var(--surface);
   box-shadow: var(--shadow-card);
   isolation: isolate;
+  transition: box-shadow 0.8s ease-out, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   transition: flex-grow 1.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.8s ease-out, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.6s ease-out;
 }
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {
     opacity: 1;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, .12);
+    box-shadow: 0 24px 48px rgba(26, 26, 26, 0.16);
+    transform: translateY(-2px);
   }
   .project-card:hover .project-card__cta {
-    transform: translateX(4px);
+    transform: translateX(6px);
     transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .project-card:hover .project-card__caption {
+    color: #f5f5f5;
+    text-shadow: 0 2px 8px rgba(26, 26, 26, 0.2);
   }
 }
 .project-card.is-active {
