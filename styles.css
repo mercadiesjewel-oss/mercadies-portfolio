@@ -888,12 +888,11 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 .contact__links {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--space-500);
   margin-top: var(--heading-gap);
   transform: translateX(-4px);
 }
-.contact__links .btn--light { margin-top: 2px; }
 
 /* ==========================================================================
    Project pages (Figma: "Flowstate Studios" frame, 1597px wide)
