@@ -52,7 +52,13 @@
       "Bash(git commit -m 'Make download button compact, same size as LinkedIn button *)",
       "Bash(git commit -m 'Add shadows and hover effects to contact buttons *)",
       "Bash(git commit -m 'Fix contact button widths and hover animations *)",
-      "Bash(git commit -m 'Fix button widths and hover animations in mobile media query *)"
+      "Bash(git commit -m 'Fix button widths and hover animations in mobile media query *)",
+      "Bash(grep -n \"}}$\" styles.css)",
+      "Bash(grep -B1 \"^}$\" styles.css)",
+      "Bash(grep -A1 \"^}$\")",
+      "Bash(awk '/@media/{print NR\": \"$0} /^}$/{print NR\": \"$0}' styles.css)",
+      "Bash(awk '/^[^{]*{$/{getline; if\\(/^}$/\\) print NR-1\": possible empty rule\"}' styles.css)",
+      "Bash(rm vercel.json)"
     ]
   }
 }
