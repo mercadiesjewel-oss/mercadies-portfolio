@@ -10,6 +10,7 @@
   --font-display: "Articulat CF", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --font-serif: "Garamond", "Georgia", serif;  /* Secondary serif font */
+  --font-hero: "Fraunces", "Georgia", serif;   /* Hero display font */
 
   /* Type scale for content text (hero, nav and buttons keep their own sizes) */
   --text-heading: 36px;     --lh-heading: 42px;
@@ -350,7 +351,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 .hero__title {
   margin: .07em 0 .05em;
-  font-family: var(--font-serif);
+  font-family: var(--font-hero);
   font-size: 1em;
   font-weight: 400;
   line-height: .8;
