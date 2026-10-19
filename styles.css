@@ -495,13 +495,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   width: 100%;
   max-width: 400px;
   aspect-ratio: 1;
-  background: repeating-linear-gradient(
-    45deg,
-    #f6f6f6,
-    #f6f6f6 10px,
-    #efefef 10px,
-    #efefef 20px
-  );
+  background-color: #e8e6e1;
   border-radius: 8px;
 }
 
