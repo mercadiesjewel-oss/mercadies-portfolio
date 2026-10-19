@@ -60,7 +60,8 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  background: var(--bg);
+  background: linear-gradient(to bottom, var(--bg) 0%, color-mix(in srgb, var(--accent) 2%, var(--bg)) 100%);
+  background-attachment: fixed;
   color: var(--ink);
   font-family: var(--font-display);
   -webkit-font-smoothing: antialiased;
@@ -592,25 +593,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   background: linear-gradient(to right, transparent, var(--surface) 20%, var(--surface) 80%, transparent);
 }
 
-/* Section-specific background colors */
-.hero {
-  background: var(--bg);
-}
-.intro-about {
-  background: var(--bg);
-}
-.about {
-  background: var(--bg);
-}
-.education {
-  background: var(--bg);
-}
-.projects {
-  background: #faf8f6;
-}
-.contact {
-  background: #faf7f5;
-}
 
 /* ---------- Intro About (Quick About + Photo) ---------- */
 .intro-about {
