@@ -6,7 +6,18 @@
       "Bash(git init *)",
       "Bash(git add *)",
       "Bash(git commit -m 'Initial commit: Mercadies Design Portfolio *)",
-      "Bash(git config *)"
+      "Bash(git config *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "mcp__ab24864c-25a1-4c8e-a3b8-93ef57a686d3__get_design_context",
+      "mcp__ab24864c-25a1-4c8e-a3b8-93ef57a686d3__use_figma",
+      "Bash(git commit -m ' *)",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -s http://localhost:8000)",
+      "Bash(git checkout *)",
+      "Bash(grep -E \"px$|px;\")"
     ]
   }
 }
