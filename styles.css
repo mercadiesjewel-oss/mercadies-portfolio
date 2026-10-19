@@ -495,7 +495,12 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   width: 100%;
   max-width: 400px;
   aspect-ratio: 1;
-  background: linear-gradient(135deg, var(--surface) 0%, #e8e8e8 100%);
+  background-color: #f0f0f0;
+  background-image: 
+    linear-gradient(90deg, transparent 24%, #c9c9c9 25%, #c9c9c9 26%, transparent 27%, transparent 74%, #c9c9c9 75%, #c9c9c9 76%, transparent 77%),
+    linear-gradient(0deg, transparent 24%, #c9c9c9 25%, #c9c9c9 26%, transparent 27%, transparent 74%, #c9c9c9 75%, #c9c9c9 76%, transparent 77%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 0;
   border-radius: 8px;
   display: flex;
   align-items: center;
