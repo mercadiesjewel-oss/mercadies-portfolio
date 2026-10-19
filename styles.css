@@ -70,26 +70,26 @@ a {
 a:hover { opacity: .75; }
 img { display: block; }
 
-/* Paper grain — the design has a noise effect over the whole frame */
+/* Paper grain — minimized for Apple aesthetic clarity */
 .grain {
   position: fixed;
   inset: 0;
   z-index: 100;
   pointer-events: none;
   mix-blend-mode: multiply;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.35 0 0 0 .78 .35 0 0 0 .78 .35 0 0 0 .78 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* ---------- Living background ----------
-   Soft dark-grey light flowing behind the page on all devices. Sits behind
-   all content; the grain layer above gives it texture. Radial gradients
-   (not blur filters) keep it cheap to animate. */
+/* ---------- Background — subtle, not decorative ----------
+   Soft gradient background. Removed continuous animation for clarity. */
 .ambient {
   position: fixed;
   inset: 0;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
+  background: linear-gradient(135deg, #f8f8f8 0%, #f1f1f1 100%);
 }
 /* Each glow is an irregular cloud: several soft ovals of different sizes,
    placed off-centre so they merge into a lumpy, organic shape (each glow
@@ -106,6 +106,7 @@ img { display: block; }
   top: var(--y);
   width: 0;
   height: 0;
+  display: none;
   animation: orbit var(--t1) linear infinite var(--dir, normal);
   animation-delay: var(--phase, 0s);
 }
@@ -271,11 +272,10 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   transition: background-color .3s var(--ease-soft);
 }
 .nav__toggle:hover {
-  background-color: rgba(0, 0, 0, .06);
-  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, .1);
 }
 .nav__toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.nav__toggle { transition: background-color .3s var(--ease-soft), transform .3s var(--ease-soft); }
+.nav__toggle { transition: background-color .3s ease-out; }
 .nav__toggle span {
   position: absolute;
   left: 11px;
@@ -464,25 +464,24 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
    duration and spacing. */
 .motion [data-reveal-group]:not(.is-revealed) [data-reveal] { opacity: 0; }
 .motion .is-revealed [data-reveal] {
-  animation: reveal-up 2.2s var(--ease-expo) calc(var(--d, 0) * 260ms) both;
+  animation: reveal-up 0.6s ease-out calc(var(--d, 0) * 80ms) both;
 }
 @keyframes reveal-up {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @keyframes brick-in {
-  from { opacity: 0; transform: translateY(.34em) scale(.96); }
-  60%  { opacity: 1; }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes drop-in {
-  from { opacity: 0; transform: translateY(-.9em); }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes rise-in {
-  from { opacity: 0; transform: translateY(.9em); }
-  to   { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 @keyframes fade-in {
   from { opacity: 0; }
@@ -565,7 +564,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: var(--text-body);
   line-height: var(--lh-body);
   margin-top: 0;
-  animation: slide-in-left .8s var(--ease-soft) .2s both;
 }
   text-wrap: pretty;
 }
@@ -594,7 +592,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: var(--text-body);
   line-height: var(--lh-body);
   text-wrap: pretty;
-  animation: slide-in-left .8s var(--ease-soft) .1s both;
 }
 
 /* ---------- Education ---------- */
@@ -616,7 +613,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: var(--text-body);
   line-height: var(--lh-body);
   text-wrap: pretty;
-  animation: slide-in-left .8s var(--ease-soft) .15s both;
 }
 /* Resume prompt stacks under the copy on the same left edge. The 48px gap is
    wider than the 32px between degree and copy (so it reads as its own beat)
@@ -658,28 +654,13 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   transition: transform 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft), background-color 0.3s var(--ease-soft), color 0.3s var(--ease-soft);
 }
 @media (hover: hover) and (pointer: fine) {
-  .btn {
-    position: relative;
-  }
-  .btn::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0);
-    border-radius: inherit;
-    transition: background 0.3s var(--ease-soft);
-    pointer-events: none;
-  }
-  .btn:hover::before {
-    background: rgba(255, 255, 255, .08);
-  }
   .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
   }
   .btn:focus-visible {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .15);
   }
 }
 .btn:active {
@@ -748,7 +729,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {
-    transform: scale(1.02);
+    opacity: 0.95;
   }
 }
 .project-card.is-active {
