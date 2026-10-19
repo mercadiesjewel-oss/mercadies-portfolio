@@ -588,14 +588,16 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: 16px;
   line-height: 1;
   white-space: nowrap;
-  transition: box-shadow 0.3s ease, translate 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  transition: transform 0.3s var(--ease-soft), box-shadow 0.3s var(--ease-soft), background-color 0.3s var(--ease-soft), color 0.3s var(--ease-soft);
 }
-.btn:hover, .btn:focus-visible {
-  translate: 0 -4px;
-  box-shadow: 0 12px 24px 6px rgba(0, 0, 0, .32);
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover, .btn:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px 6px rgba(0, 0, 0, .32);
+  }
 }
-.btn:active { 
-  translate: 0 -1px; 
+.btn:active {
+  transform: scale(0.97);
   box-shadow: 0 4px 12px 2px rgba(0, 0, 0, .2);
 }
 .btn:focus-visible { 
@@ -656,7 +658,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   background: var(--surface);
   box-shadow: var(--shadow-card);
   isolation: isolate;
-  transition: flex-grow .9s var(--ease-lux), box-shadow .6s var(--ease-settle);
+  transition: box-shadow .6s var(--ease-settle);
 }
 .project-card.is-active {
   flex-grow: var(--card-open);
@@ -745,7 +747,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 .project-card__arrow {
   display: inline-block;
   margin-left: 4px;
-  transition: transform .6s var(--ease-settle);
+  transition: transform .3s var(--ease-soft);
 }
 .project-card.is-active:hover .project-card__arrow,
 .project-card.is-active:focus-visible .project-card__arrow { transform: translateX(6px); }
@@ -951,9 +953,9 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 .card-stack__float {
   width: 100%;
   height: 100%;
-  animation: card-float 7s ease-in-out infinite alternate;
+  animation: card-float 4s linear infinite alternate;
 }
-.card-stack__card--back .card-stack__float { animation-duration: 9s; animation-delay: -4s; }
+.card-stack__card--back .card-stack__float { animation-duration: 5.1s; animation-delay: -2.5s; }
 @keyframes card-float {
   from { transform: translateY(-1.8%) rotate(.7deg); }
   to   { transform: translateY(1.8%) rotate(-.7deg); }
@@ -1265,11 +1267,19 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .btn, .site-header, .nav a, .nav a::after, .nav__toggle, .nav__toggle span,
-  .nav ul, .nav li,
-  .project-card, .project-card img, .project-card__index, .project-card__caption, .project-card__arrow,
+  /* Keep opacity/color transitions for comprehension, remove transforms/movement */
+  .btn { transition: box-shadow 0.3s var(--ease-soft), background-color 0.3s var(--ease-soft), color 0.3s var(--ease-soft) !important; }
+  .btn:active { transform: none; }
+  .site-header, .nav__toggle, .nav__toggle span { transition: none !important; }
+  .nav a::after { transition: none !important; }
+  .nav ul, .nav li { transition: none !important; }
+  .project-card { transition: box-shadow .6s var(--ease-settle) !important; }
+  .project-card img { transition: filter .9s var(--ease-settle) !important; }
+  .project-card__index { transition: opacity .4s var(--ease-settle) !important; }
+  .project-card__caption { transition: opacity .35s var(--ease-settle) !important; transform: none !important; }
+  .project-card__arrow { transition: none !important; }
   .projects__dots button { transition: none !important; }
-  .ambient__orbit, .ambient__blob { animation: none; }   /* background stays, but holds still */
+  .ambient__orbit, .ambient__blob { animation: none; }   /* background stays still */
   .project-hero img, .card-stack__float { animation: none; }
   .card-stack__card { transition: none !important; }
 }
