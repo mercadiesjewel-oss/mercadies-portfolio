@@ -40,7 +40,8 @@
       "Bash(git commit -m 'Implement Hermès-inspired luxury design system *)",
       "Bash(git commit -m 'Add burgundy buttons and section background gradients *)",
       "Bash(git commit -m 'Refine section backgrounds with subtle color shifts *)",
-      "Bash(git commit -m 'Implement smooth full-page gradient with no visible edges *)"
+      "Bash(git commit -m 'Implement smooth full-page gradient with no visible edges *)",
+      "Bash(git commit -m 'Increase gradient visibility to 8% for better depth perception *)"
     ]
   }
 }
