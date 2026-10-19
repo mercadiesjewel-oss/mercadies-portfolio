@@ -260,3 +260,103 @@ document.querySelectorAll('.card-stack').forEach((stack) => {
     touchX = null;
   });
 })();
+
+// GSAP Scroll Animations — Award-winning choreography
+(() => {
+  // Check if GSAP is loaded
+  if (typeof gsap === 'undefined') return;
+
+  // Register ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Animate section titles with elegant color and scale
+  document.querySelectorAll('.section-title').forEach((title, i) => {
+    gsap.fromTo(
+      title,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        scrollTrigger: {
+          trigger: title,
+          start: 'top 80%',
+          end: 'top 60%',
+          scrub: 0.5,
+          markers: false
+        }
+      }
+    );
+  });
+
+  // Animate project cards with sophisticated entrance
+  document.querySelectorAll('.project-card').forEach((card, i) => {
+    gsap.fromTo(
+      card,
+      { opacity: 0, y: 40, filter: 'blur(8px)' },
+      {
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        duration: 1.2,
+        delay: i * 0.15,
+        ease: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 85%',
+          end: 'top 65%',
+          scrub: 0.8,
+          markers: false
+        }
+      }
+    );
+  });
+
+  // Parallax effect on intro section
+  const introAbout = document.querySelector('.intro-about');
+  if (introAbout) {
+    gsap.to(
+      introAbout,
+      {
+        y: -40,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: introAbout,
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 1,
+          markers: false
+        }
+      }
+    );
+  }
+
+  // Staggered animation for body text
+  document.querySelectorAll('[data-reveal-group]').forEach((group) => {
+    const reveals = group.querySelectorAll('[data-reveal]');
+    gsap.fromTo(
+      reveals,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        stagger: 0.15,
+        ease: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+        scrollTrigger: {
+          trigger: group,
+          start: 'top 75%',
+          end: 'top 55%',
+          scrub: 0.6,
+          markers: false
+        }
+      }
+    );
+  });
+
+  // Refresh ScrollTrigger when fonts load
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => ScrollTrigger.refresh());
+  }
+})();

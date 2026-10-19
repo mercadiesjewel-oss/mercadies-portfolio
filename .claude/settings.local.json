@@ -31,7 +31,8 @@
       "Bash(git commit -m 'Add Apple-style character: refined interactions and subtle personality *)",
       "Bash(git commit -m 'Slow down and smooth all animations for luxurious feel *)",
       "Bash(git commit -m 'Fix contact buttons: perfect alignment and consistent sizing *)",
-      "Bash(git commit -m 'Add premium luxury feel: charcoal palette, refined shadows, and premium interactions *)"
+      "Bash(git commit -m 'Add premium luxury feel: charcoal palette, refined shadows, and premium interactions *)",
+      "Bash(git commit -m 'Implement GSAP ScrollTrigger animations for Awwwards-quality choreography *)"
     ]
   }
 }
