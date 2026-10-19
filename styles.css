@@ -59,7 +59,7 @@
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 html {
-  background: linear-gradient(to bottom, #f5f5f5 0%, #d4a5a0 100%);
+  background: linear-gradient(to bottom, #f5f5f5 0%, #f3ede9 100%);
   background-attachment: fixed;
 }
 body {
