@@ -238,9 +238,10 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 /* "M" mark: always visible, takes you back to the top of the landing page */
 /* Soft hover: the other links fade back slightly while the hovered one lifts and underlines */
 @media (hover: hover) {
-  .nav:hover a:not(:hover) { opacity: .6; }
+  .nav:hover a:not(:hover) { opacity: .5; }
   .nav a:hover {
     transform: translateY(-2px);
+    color: var(--ink-light);
   }
 }
 .nav a:focus-visible {
@@ -561,7 +562,19 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 
 /* ---------- Section rhythm ---------- */
-.about, .education, .projects, .contact { padding-block: var(--section-space); }
+.about, .education, .projects, .contact {
+  padding-block: var(--section-space);
+  position: relative;
+}
+.about::before, .education::before, .projects::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--surface) 20%, var(--surface) 80%, transparent);
+}
 
 /* ---------- Intro About (Quick About + Photo) ---------- */
 .intro-about {
@@ -593,6 +606,13 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: var(--text-body);
   line-height: var(--lh-body);
   margin-top: 0;
+  transition: color 0.6s ease-out, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@media (hover: hover) {
+  .intro-about__body:hover {
+    color: var(--ink-light);
+    transform: translateX(2px);
+  }
 }
   text-wrap: pretty;
 }
@@ -621,6 +641,13 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: var(--text-body);
   line-height: var(--lh-body);
   text-wrap: pretty;
+  transition: color 0.6s ease-out, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@media (hover: hover) {
+  .about__body:hover {
+    color: var(--ink-light);
+    transform: translateX(2px);
+  }
 }
 
 /* ---------- Education ---------- */
@@ -648,6 +675,14 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: var(--text-body);
   line-height: var(--lh-body);
   text-wrap: pretty;
+  transition: color 0.6s ease-out, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@media (hover: hover) {
+  .education__body:hover {
+    color: var(--ink-light);
+    transform: translateX(2px);
+  }
+}
 }
 /* Resume prompt stacks under the copy on the same left edge. The 48px gap is
    wider than the 32px between degree and copy (so it reads as its own beat)
@@ -721,22 +756,42 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   outline-offset: 4px;
 }
 .btn--dark {
-  background: var(--ink);
+  background: linear-gradient(135deg, var(--ink) 0%, var(--ink-light) 100%);
   color: var(--on-brand);
-  box-shadow: var(--shadow-btn);
+  box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+.btn--dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1));
+  border-radius: inherit;
+  pointer-events: none;
 }
 .btn--dark:hover, .btn--dark:focus-visible {
-  background: var(--ink-light);
+  background: linear-gradient(135deg, var(--ink-light) 0%, #353535 100%);
+  box-shadow: var(--shadow-btn), 0 0 20px rgba(26, 26, 26, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 .btn--light {
-  background: var(--btn-light);
+  background: linear-gradient(135deg, var(--btn-light) 0%, #fafafa 100%);
   color: var(--ink);
   border: 1px solid var(--surface);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+}
+.btn--light::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0.02));
+  border-radius: inherit;
+  pointer-events: none;
 }
 .btn--light:hover, .btn--light:focus-visible {
-  background: var(--surface-light);
+  background: linear-gradient(135deg, var(--surface-light) 0%, #f5f5f5 100%);
   border-color: var(--ink-light);
+  box-shadow: var(--shadow-sm), 0 0 16px rgba(26, 26, 26, 0.08), inset 0 1px 0 rgba(255, 255, 255, 1);
 }
 .btn--sm { padding: var(--space-300) var(--space-400); font-size: 14px; }
 
@@ -818,13 +873,19 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   transition: transform 2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 1.6s ease-out;
 }
 
-/* Soft scrim so white type stays legible */
+/* Premium scrim with subtle gradient overlay */
 .project-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, .55), rgba(0, 0, 0, 0) 45%);
+  background: linear-gradient(to top, rgba(0, 0, 0, .65), rgba(0, 0, 0, .15) 40%, rgba(0, 0, 0, 0) 60%);
   pointer-events: none;
+  transition: opacity 0.6s ease-out;
+}
+@media (hover: hover) {
+  .project-card:hover::after {
+    background: linear-gradient(to top, rgba(0, 0, 0, .75), rgba(0, 0, 0, .25) 40%, rgba(0, 0, 0, 0) 60%);
+  }
 }
 
 /* Folded state: just the index number */
@@ -853,13 +914,13 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   flex-direction: column;
   gap: 6px;
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity .35s var(--ease-settle), transform .35s var(--ease-settle);
+  transform: translateY(18px) scale(0.95);
+  transition: opacity 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .project-card.is-active .project-card__caption {
   opacity: 1;
-  transform: none;
-  transition: opacity .7s var(--ease-settle) .45s, transform .9s var(--ease-settle) .45s;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s, transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.45s;
 }
 .project-card__title {
   font-weight: 700;
