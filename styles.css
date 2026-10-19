@@ -451,8 +451,8 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 
 /* ---------- Section headings ---------- */
 .section-title {
-  font-family: var(--font-serif);
-  font-weight: 700;
+  font-family: var(--font-hero);
+  font-weight: 400;
   font-size: var(--text-heading);
   line-height: var(--lh-heading);
   letter-spacing: -0.5px;
@@ -746,7 +746,8 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 
 /* ---------- Contact ---------- */
 .contact__title {
-  font-weight: 900;
+  font-family: var(--font-hero);
+  font-weight: 400;
   font-size: var(--text-heading);
   line-height: var(--lh-heading);
   text-align: center;
@@ -853,7 +854,8 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 .project-intro__heading {
-  font-weight: 800;
+  font-family: var(--font-hero);
+  font-weight: 400;
   font-size: var(--text-heading);
   line-height: var(--lh-heading);
 }
@@ -1143,7 +1145,8 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   margin-top: 111px;                    /* mockups → acknowledgement (Figma) */
 }
 .project-ack__heading {
-  font-weight: 600;
+  font-family: var(--font-hero);
+  font-weight: 400;
   font-size: var(--text-heading);
   line-height: var(--lh-heading);
 }
