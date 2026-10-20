@@ -623,7 +623,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 /* ---------- Intro About (Quick About + Photo) ---------- */
 .intro-about {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 600px);
+  grid-template-columns: minmax(0, 600px) minmax(0, 1fr);
   column-gap: var(--space-800);
   align-items: center;
   padding-block: var(--section-space);
@@ -674,6 +674,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 
 @media (max-width: 900px) {
   .intro-about { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-400); }
+  .intro-about__signature { justify-self: start; }
 }
 
 /* ---------- About ---------- */
@@ -1005,7 +1006,8 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 
 /* ---------- Signature: a single pen line that writes itself in ---------- */
-.intro-about__signature { align-self: center; }
+.intro-about__signature { order: 1; align-self: center; justify-self: end; width: 100%; }
+.intro-about__text { order: 0; }
 .signature {
   display: block;
   width: 100%;
