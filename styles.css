@@ -623,7 +623,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 /* ---------- Intro About (Quick About + Photo) ---------- */
 .intro-about {
   display: grid;
-  grid-template-columns: minmax(0, 600px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 600px);
   column-gap: var(--space-800);
   align-items: center;
   padding-block: var(--section-space);
@@ -650,6 +650,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   font-size: var(--text-body);
   line-height: var(--lh-body);
   margin-top: 0;
+  text-wrap: pretty;
   transition: color 0.6s ease-out, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 @media (hover: hover) {
@@ -657,8 +658,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
     color: var(--ink-light);
     transform: translateX(2px);
   }
-}
-  text-wrap: pretty;
 }
 .intro-about__media {
   display: flex;
@@ -671,6 +670,10 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   aspect-ratio: 1;
   background-color: #e8e6e1;
   border-radius: 8px;
+}
+
+@media (max-width: 900px) {
+  .intro-about { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-400); }
 }
 
 /* ---------- About ---------- */
@@ -1001,36 +1004,33 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   transform: translateY(-5px) !important;
 }
 
-/* ---------- Signature: writes itself in once it scrolls into view ---------- */
+/* ---------- Signature: a single pen line that writes itself in ---------- */
+.intro-about__signature { align-self: center; }
 .signature {
   display: block;
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   height: auto;
-  margin-top: var(--space-400);
   overflow: visible;
 }
 .signature path {
-  fill: var(--accent);
+  fill: none;
   stroke: var(--accent);
-  stroke-width: 6;
+  stroke-width: 1.4;
+  stroke-linecap: round;
   stroke-linejoin: round;
 }
 .motion .signature:not(.is-written) path {
-  fill-opacity: 0;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
 .motion .signature.is-written path {
   stroke-dasharray: 1;
-  animation: sig-draw 3.6s cubic-bezier(.45, .05, .55, .95) forwards, sig-fill 1.2s ease-out 3s both;
+  animation: sig-draw var(--t) linear var(--s) both;
 }
 @keyframes sig-draw {
   from { stroke-dashoffset: 1; }
   to { stroke-dashoffset: 0; }
-}
-@keyframes sig-fill {
-  from { fill-opacity: 0; }
-  to { fill-opacity: 1; }
 }
 
 /* ---------- Contact ---------- */
