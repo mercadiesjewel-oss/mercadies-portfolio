@@ -28,6 +28,30 @@ updateHeader();
   update();
 })();
 
+// Small details: the spotlight follows the cursor, the tilt tile leans toward it
+(() => {
+  const canPoint = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+  if (!canPoint.matches) return;
+  document.querySelectorAll('.tile--spotlight').forEach((tile) => {
+    tile.addEventListener('pointermove', (e) => {
+      const r = tile.getBoundingClientRect();
+      tile.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      tile.style.setProperty('--my', `${e.clientY - r.top}px`);
+    });
+  });
+  const tiltTile = document.querySelector('.tile--tilt');
+  if (tiltTile) {
+    const surface = tiltTile.querySelector('.tile__surface');
+    tiltTile.addEventListener('pointermove', (e) => {
+      const r = tiltTile.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      surface.style.transform = `perspective(600px) rotateX(${-y * 24}deg) rotateY(${x * 24}deg)`;
+    });
+    tiltTile.addEventListener('pointerleave', () => { surface.style.transform = ''; });
+  }
+})();
+
 // Hamburger menu (smaller screens)
 const toggle = header.querySelector('.nav__toggle');
 const setMenu = (open) => {
