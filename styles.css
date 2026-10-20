@@ -902,8 +902,6 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 .tile--project:focus-visible .fill-chip::before { transform: scaleX(1); }
 .fill-chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 .tile--project .fill-chip { margin-top: auto; }
-.resume .fill-chip { align-self: flex-start; }
-.contact__links .fill-chip { width: 150px; }
 
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .education__degree > span { transition: transform 0.6s var(--ease-expo); }
@@ -915,6 +913,92 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   .tile, .tile__media, .tile__media img, .tile--spotlight::before, .fill-chip, .fill-chip::before {
     transition: none !important;
   }
+}
+
+/* ---------- Buttons: filled, pill-shaped ---------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-75);
+  padding: var(--space-75) var(--space-100);
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-btn);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease-out, background-color 0.4s ease-out, color 0.4s ease-out;
+}
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover, .btn:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(42, 42, 42, 0.14);
+  }
+}
+.btn:active {
+  transform: translateY(-2px) scale(0.96);
+  box-shadow: 0 8px 16px rgba(26, 26, 26, 0.12);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+.btn--dark {
+  background: linear-gradient(135deg, var(--accent) 0%, #5a2335 100%);
+  color: var(--on-brand);
+  box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+.btn--dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.06));
+  border-radius: inherit;
+  pointer-events: none;
+}
+.btn--dark:hover, .btn--dark:focus-visible {
+  background: linear-gradient(135deg, #5a2335 0%, #4a1a2a 100%);
+  box-shadow: var(--shadow-btn), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+.btn--light {
+  background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+  color: var(--ink);
+  border: 1px solid rgba(42, 42, 42, 0.08);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  position: relative;
+}
+.btn--light::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.01));
+  border-radius: inherit;
+  pointer-events: none;
+}
+.btn--light:hover, .btn--light:focus-visible {
+  background: linear-gradient(135deg, var(--surface-light) 0%, #f5f5f5 100%);
+  border-color: rgba(42, 42, 42, 0.15);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+.btn--sm { padding: var(--space-300) var(--space-400); font-size: 14px; }
+.resume .btn { width: fit-content; font-size: 14px; box-shadow: 0 3px 7px 3px rgba(0, 0, 0, .15); }
+/* !important: the scroll reveal writes an inline transform onto these buttons, which would otherwise block the lift */
+.contact__links .btn { width: 120px; box-shadow: var(--shadow-btn); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease-out, background 0.4s ease-out, color 0.4s ease-out; }
+.contact__links .btn--dark:hover, .contact__links .btn--dark:focus-visible {
+  background: linear-gradient(135deg, #5a2335 0%, #4a1a2a 100%);
+  box-shadow: 0 12px 28px rgba(42, 42, 42, 0.18);
+  transform: translateY(-5px) !important;
+}
+.contact__links .btn--light:hover, .contact__links .btn--light:focus-visible {
+  background: linear-gradient(135deg, var(--surface-light) 0%, #f5f5f5 100%);
+  border-color: rgba(42, 42, 42, 0.15);
+  box-shadow: 0 12px 28px rgba(42, 42, 42, 0.12);
+  transform: translateY(-5px) !important;
 }
 
 /* ---------- Contact ---------- */
@@ -1386,17 +1470,29 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
      down — gaps, radii and shadows shrink with it */
 
   .fill-chip { font-size: 14px; padding: var(--space-200) var(--space-300); }
+  .btn--sm { padding: var(--space-200) var(--space-300); font-size: 13px; }
+  .btn { box-shadow: 0 3px 8px 2px rgba(0, 0, 0, .22); }
+  .btn:hover, .btn:focus-visible { box-shadow: 0 6px 12px 2px rgba(0, 0, 0, .25); }
+  .btn:active { box-shadow: 0 3px 8px 2px rgba(0, 0, 0, .22); }
   .education__body { margin-top: 20px; }
   .resume { margin-top: 32px; }       /* same rhythm as desktop: resume gap > degree→copy gap */
+  .resume .btn { margin-top: 16px; font-size: 12px; box-shadow: 0 2px 6px 2px rgba(0, 0, 0, .22); }
   .contact__title { transform: none; }
   /* Smaller buttons fit side by side again, like desktop */
   .contact__links { gap: 16px; transform: none; }
+  .contact__links .btn:hover, .contact__links .btn:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(42, 42, 42, 0.14);
+  }
+  .contact__links .btn--light { margin-top: 0; }
 }
 
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   /* Keep opacity/color transitions for comprehension, remove transforms/movement */
+  .btn { transition: box-shadow 0.3s var(--ease-soft), background-color 0.3s var(--ease-soft), color 0.3s var(--ease-soft) !important; }
+  .btn:active { transform: none; }
   .site-header, .nav__toggle, .nav__toggle span { transition: none !important; }
   .nav a::after { transition: none !important; }
   .nav ul, .nav li { transition: none !important; }
