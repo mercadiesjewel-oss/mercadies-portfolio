@@ -1028,7 +1028,7 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
 }
 .motion .signature.is-written path {
   stroke-dasharray: 1;
-  animation: sig-draw var(--t) linear var(--s) both;
+  animation: sig-draw 5s cubic-bezier(.45, .05, .55, .95) forwards;
 }
 @keyframes sig-draw {
   from { stroke-dashoffset: 1; }
