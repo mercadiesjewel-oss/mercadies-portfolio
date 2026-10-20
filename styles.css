@@ -1001,6 +1001,38 @@ html:not(.nav-compact) .nav ul { display: contents; }   /* links join the even s
   transform: translateY(-5px) !important;
 }
 
+/* ---------- Signature: writes itself in once it scrolls into view ---------- */
+.signature {
+  display: block;
+  width: 300px;
+  height: auto;
+  margin-top: var(--space-400);
+  overflow: visible;
+}
+.signature path {
+  fill: var(--accent);
+  stroke: var(--accent);
+  stroke-width: 6;
+  stroke-linejoin: round;
+}
+.motion .signature:not(.is-written) path {
+  fill-opacity: 0;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.motion .signature.is-written path {
+  stroke-dasharray: 1;
+  animation: sig-draw 3.6s cubic-bezier(.45, .05, .55, .95) forwards, sig-fill 1.2s ease-out 3s both;
+}
+@keyframes sig-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes sig-fill {
+  from { fill-opacity: 0; }
+  to { fill-opacity: 1; }
+}
+
 /* ---------- Contact ---------- */
 .contact__title {
   font-family: var(--font-hero);

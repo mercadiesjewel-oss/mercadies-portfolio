@@ -51,6 +51,16 @@ updateHeader();
   });
 })();
 
+// Signature: writes itself in the first time it scrolls into view
+(() => {
+  const sig = document.querySelector('.signature');
+  if (!sig || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) { sig.classList.add('is-written'); io.disconnect(); }
+  }, { threshold: 0.6 });
+  io.observe(sig);
+})();
+
 // Hamburger menu (smaller screens)
 const toggle = header.querySelector('.nav__toggle');
 const setMenu = (open) => {
