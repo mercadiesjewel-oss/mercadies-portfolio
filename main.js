@@ -28,7 +28,7 @@ updateHeader();
   update();
 })();
 
-// Small details: the spotlight follows the cursor, the tilt tile leans toward it
+// Micro-interactions: tiles glow under the cursor, and image frames lean toward it
 (() => {
   const canPoint = matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   if (!canPoint.matches) return;
@@ -39,17 +39,16 @@ updateHeader();
       tile.style.setProperty('--my', `${e.clientY - r.top}px`);
     });
   });
-  const tiltTile = document.querySelector('.tile--tilt');
-  if (tiltTile) {
-    const surface = tiltTile.querySelector('.tile__surface');
-    tiltTile.addEventListener('pointermove', (e) => {
-      const r = tiltTile.getBoundingClientRect();
+  document.querySelectorAll('.tile--tilt').forEach((tile) => {
+    const media = tile.querySelector('.tile__media');
+    tile.addEventListener('pointermove', (e) => {
+      const r = tile.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width - 0.5;
       const y = (e.clientY - r.top) / r.height - 0.5;
-      surface.style.transform = `perspective(600px) rotateX(${-y * 24}deg) rotateY(${x * 24}deg)`;
+      media.style.transform = `perspective(800px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg)`;
     });
-    tiltTile.addEventListener('pointerleave', () => { surface.style.transform = ''; });
-  }
+    tile.addEventListener('pointerleave', () => { media.style.transform = ''; });
+  });
 })();
 
 // Hamburger menu (smaller screens)
@@ -247,62 +246,6 @@ document.querySelectorAll('.card-stack').forEach((stack) => {
   });
 });
 
-// Project gallery: hover to open (mouse), tap or swipe (touch), arrow keys (keyboard)
-(() => {
-  const rail = document.querySelector('.projects__rail');
-  if (!rail) return;
-  const cards = [...rail.querySelectorAll('.project-card')];
-  const dots = [...document.querySelectorAll('.projects__dots button')];
-  let active = 0;
-  const activate = (i) => {
-    active = Math.max(0, Math.min(cards.length - 1, i));
-    cards.forEach((c, j) => c.classList.toggle('is-active', j === active));
-    dots.forEach((d, j) => d.setAttribute('aria-current', j === active));
-  };
-  const canHover = matchMedia('(hover: hover) and (pointer: fine)');
-  let hoverTimer, swiped = false;
-  cards.forEach((card, i) => {
-    // a short pause before opening, so sweeping the mouse across doesn't make the row flutter
-    card.addEventListener('mouseenter', () => {
-      if (!canHover.matches) return;
-      clearTimeout(hoverTimer);
-      hoverTimer = setTimeout(() => activate(i), 70);
-    });
-    // A folded card opens on the first tap/click; only an open card follows its link
-    card.addEventListener('click', (e) => {
-      if (swiped || !card.classList.contains('is-active')) {
-        e.preventDefault();
-        if (!swiped) activate(i);
-      }
-    });
-    card.addEventListener('focus', () => { if (card.matches(':focus-visible')) activate(i); });
-  });
-  rail.addEventListener('mouseleave', () => clearTimeout(hoverTimer));
-  dots.forEach((d, i) => d.addEventListener('click', () => activate(i)));
-  rail.addEventListener('keydown', (e) => {
-    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-    e.preventDefault();
-    activate(active + (e.key === 'ArrowRight' ? 1 : -1));
-    cards[active].focus();
-  });
-  let touchX = null, touchY = null;
-  rail.addEventListener('touchstart', (e) => {
-    touchX = e.touches[0].clientX;
-    touchY = e.touches[0].clientY;
-  }, { passive: true });
-  rail.addEventListener('touchend', (e) => {
-    if (touchX === null) return;
-    const dx = e.changedTouches[0].clientX - touchX;
-    const dy = e.changedTouches[0].clientY - touchY;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-      activate(active + (dx < 0 ? 1 : -1));
-      swiped = true;                    // ignore the tap the browser may fire after a swipe
-      setTimeout(() => { swiped = false; }, 350);
-    }
-    touchX = null;
-  });
-})();
-
 // GSAP Scroll Animations — Award-winning choreography
 (() => {
   // Check if GSAP is loaded
@@ -326,29 +269,6 @@ document.querySelectorAll('.card-stack').forEach((stack) => {
           start: 'top 80%',
           end: 'top 60%',
           scrub: 0.5,
-          markers: false
-        }
-      }
-    );
-  });
-
-  // Animate project cards with sophisticated entrance
-  document.querySelectorAll('.project-card').forEach((card, i) => {
-    gsap.fromTo(
-      card,
-      { opacity: 0, y: 40, filter: 'blur(8px)' },
-      {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        duration: 1.2,
-        delay: i * 0.15,
-        ease: 'cubic-bezier(0.34, 1.56, 0.64, 1)',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 85%',
-          end: 'top 65%',
-          scrub: 0.8,
           markers: false
         }
       }
