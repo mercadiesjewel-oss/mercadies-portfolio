@@ -10,6 +10,24 @@ addEventListener('scroll', updateHeader, { passive: true });
 addEventListener('resize', updateHeader);
 updateHeader();
 
+// Reading progress line along the top edge
+(() => {
+  const bar = document.createElement('div');
+  bar.className = 'scroll-progress';
+  bar.setAttribute('aria-hidden', 'true');
+  document.body.append(bar);
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${max > 0 ? scrollY / max : 0})`;
+  };
+  const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+  addEventListener('scroll', queue, { passive: true });
+  addEventListener('resize', queue);
+  update();
+})();
+
 // Hamburger menu (smaller screens)
 const toggle = header.querySelector('.nav__toggle');
 const setMenu = (open) => {
