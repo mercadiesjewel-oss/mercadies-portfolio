@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Studio — Mercadies (prototype)</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    .studio__nav {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-300);
+      padding: var(--space-300) var(--gutter);
+      background: rgba(245, 245, 245, 0.92);
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(42, 42, 42, 0.06);
+    }
+    .studio__brand { font-family: var(--font-hero); font-size: 24px; color: var(--ink); }
+    .studio__links { display: flex; flex-wrap: wrap; gap: var(--space-300); justify-content: flex-end; }
+    .studio__links a {
+      font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(42, 42, 42, 0.55); padding: 6px 0;
+      border-bottom: 1px solid transparent;
+      transition: color 0.4s ease-out, border-color 0.4s ease-out;
+    }
+    .studio__links a:hover, .studio__links a:focus-visible { color: var(--ink); border-bottom-color: var(--accent); outline: none; }
+
+    .studio__intro {
+      padding: var(--space-700) var(--gutter) var(--space-400);
+      font-family: var(--font-hero); font-size: clamp(40px, 5vw, 64px); line-height: 1.05;
+    }
+    .studio__intro small {
+      display: block; margin-top: var(--space-200);
+      font-family: var(--font-display); font-size: 16px; color: rgba(42, 42, 42, 0.6);
+    }
+
+    .walk {
+      position: relative; display: flex; align-items: flex-end; gap: var(--space-700);
+      overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+      padding: var(--space-300) var(--gutter) var(--space-400);
+      scrollbar-width: none; overscroll-behavior-x: contain;
+    }
+    .walk::-webkit-scrollbar { display: none; }
+    .walk:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+    .piece { flex: 0 0 min(56vw, 640px); scroll-snap-align: center; margin: 0; }
+    .piece__stage { height: clamp(520px, 66vh, 640px); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+    .piece__stage--wall { justify-content: center; }
+
+    .work {
+      position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden;
+      background: var(--surface-light); border: 1px solid rgba(42, 42, 42, 0.08);
+      box-shadow: var(--shadow-card);
+      transition: transform 0.7s var(--ease-expo), box-shadow 0.7s ease-out;
+    }
+    .work img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .work--type { display: flex; align-items: center; justify-content: center; background: var(--surface); }
+    .work--type span { font-family: var(--font-hero); font-size: 96px; line-height: 1; }
+    .work--empty {
+      display: flex; align-items: center; justify-content: center;
+      background: transparent; border: 1px dashed rgba(42, 42, 42, 0.25);
+      font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(42, 42, 42, 0.45);
+    }
+    .work--framed { padding: var(--space-300); background: var(--surface-light); }
+    .work--framed > * { position: relative; width: 100%; height: 100%; }
+
+    .piece:hover .work { transform: translateY(-6px); box-shadow: 0 30px 60px -28px rgba(42, 42, 42, 0.35); }
+
+    .plaque { margin-top: var(--space-200); font-size: 14px; line-height: 1.5; color: rgba(42, 42, 42, 0.7); }
+    .plaque strong {
+      display: block; font-family: var(--font-hero); font-weight: 400; font-size: 24px;
+      color: var(--ink); margin-bottom: 4px;
+    }
+    .plaque em { font-style: normal; color: var(--accent); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .card-head { display: grid; row-gap: var(--space-100); padding-bottom: var(--space-300); margin-bottom: var(--space-300); border-bottom: 1px solid rgba(42, 42, 42, 0.12); }
+    .card-head__title { font-family: var(--font-hero); font-size: 26px; line-height: 1.1; color: var(--ink); margin: 0; }
+    .card-head__artist { font-style: italic; color: var(--ink); margin: 0; }
+    .card-head__meta { font-size: 13px; color: rgba(42, 42, 42, 0.6); margin: 0; }
+    .piece a { display: block; color: inherit; }
+    .piece a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+
+
+    .piece--lg { flex-basis: min(60vw, 760px); }
+    .piece--sm { flex-basis: min(42vw, 440px); align-self: center; }
+    .placard {
+      max-width: 520px; padding: var(--space-500);
+      background: var(--surface-light); border: 1px solid rgba(42, 42, 42, 0.08);
+      box-shadow: var(--shadow-card);
+    }
+    .placard__eyebrow {
+      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin: 0 0 var(--space-300);
+    }
+    .catalogue { margin: 0; max-width: 600px; border-top: 1px solid rgba(42, 42, 42, 0.2); }
+    .catalogue div {
+      display: flex; justify-content: space-between; gap: var(--space-300);
+      padding: var(--space-200) 0; border-bottom: 1px solid rgba(42, 42, 42, 0.1);
+      font-size: var(--text-body); line-height: var(--lh-body);
+    }
+    .catalogue dt { color: rgba(42, 42, 42, 0.55); }
+    .catalogue dd { margin: 0; text-align: right; }
+    .gallery-hover .walk { scroll-snap-type: none; scroll-behavior: auto; perspective: 1400px; }
+    .gallery-hover .piece { will-change: transform, opacity; }
+    @keyframes studio-in { from { opacity: 0; } to { opacity: 1; } }
+    body { animation: studio-in 1s ease-out both; }
+    .js .studio__intro, .js .studio__section {
+      opacity: 0; transform: translateY(18px);
+      transition: opacity 1s ease-out, transform 1.1s var(--ease-expo);
+    }
+    .js .studio__intro.is-in, .js .studio__section.is-in { opacity: 1; transform: none; }
+    .js img { opacity: 0; transition: opacity 1.1s ease-out; }
+    .js img.is-loaded { opacity: 1; }
+    .btn, .piece a { transition: transform 0.4s var(--ease-expo), box-shadow 0.4s ease-out, background-color 0.4s ease-out, color 0.4s ease-out; }
+    .btn:active { transform: scale(0.97); }
+    .piece a:active { transform: scale(0.985); }
+    @media (prefers-reduced-motion: reduce) {
+      body, .js .studio__intro, .js .studio__section, .js img { animation: none; opacity: 1; transform: none; transition: none; }
+    }
+    section[id] { scroll-margin-top: 96px; }
+    .studio__section {
+      padding: var(--space-900) var(--gutter);
+      border-top: 1px solid rgba(42, 42, 42, 0.06);
+    }
+    .studio__section h2 {
+      font-family: var(--font-hero); font-weight: 400; font-size: var(--text-heading); line-height: var(--lh-heading);
+      margin: 0 0 var(--heading-gap);
+    }
+    .studio__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-800); }
+    .studio__tagline { font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0, 0, 0, 0.6); margin-bottom: var(--space-200); }
+    .studio__body { font-size: var(--text-body); line-height: var(--lh-body); max-width: 600px; }
+    .studio__degree { font-weight: 700; font-size: var(--text-subheading); line-height: var(--lh-subheading); }
+    .studio__degree span { display: block; }
+    .studio__resume { max-width: 600px; align-self: start; display: flex; flex-direction: column; gap: var(--space-500); }
+    #education { padding-bottom: var(--space-500); }
+    #education .studio__grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-500); }
+    .studio__resume-foot { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-400); }
+    .studio__resume-foot .placard__eyebrow { margin: 0; }
+    .contact-row { display: flex; gap: var(--space-300); flex-wrap: wrap; }
+    #contact h2 { font-size: clamp(36px, 4vw, 52px); font-weight: 500; line-height: 0.98; letter-spacing: -0.02em; margin-bottom: var(--space-700); }
+    .contact-row { gap: var(--space-200); }
+    .contact-row .btn--sm { padding: 12px 26px; font-size: 13px; font-weight: 500; min-width: 136px; }
+
+    @media (max-width: 900px) {
+      .studio__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-500); }
+    }
+    @media (max-width: 720px) {
+      .studio__nav { flex-direction: column; align-items: flex-start; }
+      .studio__links { justify-content: flex-start; gap: var(--space-200); }
+      .walk { flex-direction: column; align-items: stretch; overflow: visible; scroll-snap-type: none; gap: var(--space-600); }
+      .piece { flex: none; width: 100%; }
+      .piece__stage { height: auto; min-height: 340px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .walk { scroll-behavior: auto; }
+      .work { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="studio">
+    <header class="studio__nav">
+      <a class="studio__brand" href="#top" aria-label="Back to top of studio">M</a>
+      <nav class="studio__links" aria-label="Studio">
+        <a href="#gallery">Work</a>
+        <a href="#about">About Me</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="studio__intro" aria-label="Welcome">
+        Hey, I’m Mercadies.
+        <br>Welcome to my studio.
+        <small>Designing from canvas to screen</small>
+      </section>
+
+      <section id="gallery" aria-label="Gallery">
+        <div class="walk" tabindex="0" aria-label="Design work and paintings">
+          <figure class="piece piece--sculpture piece--lg" data-kind="Design">
+            <a href="projects/primer.html">
+              <div class="piece__stage">
+                <div class="work work--type" aria-hidden="true"><span>01</span></div>
+                              </div>
+            </a>
+            <figcaption class="plaque"><em>Room I · Design</em><strong>Primer</strong>Mobile app design · 2026</figcaption>
+          </figure>
+          <figure class="piece piece--sculpture" data-kind="Design">
+            <a href="projects/flowstate-studios.html">
+              <div class="piece__stage">
+                <div class="work"><img src="assets/project-signage.png" alt="Flowstate Studios brand identity shown on an outdoor hanging sign" loading="lazy"></div>
+                              </div>
+            </a>
+            <figcaption class="plaque"><em>Room I · Design</em><strong>Flowstate Studios</strong>Brand identity · 2026</figcaption>
+          </figure>
+          <figure class="piece piece--sculpture piece--sm" data-kind="Design">
+            <a href="projects/caddyshack-project.html">
+              <div class="piece__stage">
+                <div class="work"><img src="assets/project-social.png" alt="Caddyshack Project sexual health campaign shown as social media posts on a phone" loading="lazy"></div>
+                              </div>
+            </a>
+            <figcaption class="plaque"><em>Room I · Design</em><strong>Caddyshack Project</strong>Sexual health campaign · 2026</figcaption>
+          </figure>
+          <figure class="piece" data-kind="Painting">
+            <div class="piece__stage piece__stage--wall">
+              <div class="work work--empty">Painting 01</div>
+            </div>
+            <figcaption class="plaque"><em>Room II · Painting</em><strong>Untitled Study</strong>Oil on canvas · to come</figcaption>
+          </figure>
+          <figure class="piece" data-kind="Painting">
+            <div class="piece__stage piece__stage--wall">
+              <div class="work work--empty">Painting 02</div>
+            </div>
+            <figcaption class="plaque"><em>Room II · Painting</em><strong>Untitled Study</strong>Oil on canvas · to come</figcaption>
+          </figure>
+          <figure class="piece" data-kind="Painting">
+            <div class="piece__stage piece__stage--wall">
+              <div class="work work--empty">Painting 03</div>
+            </div>
+            <figcaption class="plaque"><em>Room II · Painting</em><strong>Untitled Study</strong>Oil on canvas · to come</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="studio__section" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">About Me</h2>
+        <div class="placard">
+          <p class="placard__eyebrow">Artist’s statement</p>
+          <div class="card-head">
+            <p class="card-head__title">Artist &amp; Designer</p>
+            <p class="card-head__artist">Mercadies</p>
+            <p class="card-head__meta">Oil painter · Visual communications designer</p>
+          </div>
+          <p class="studio__body">I’m Mercadies, an artist and emerging visual communications designer. I believe good design should feel alive—intentional, restrained, and meaningful. Alongside my design practice, I’m an oil painter, which informs how I think about composition, color, and audience experience.</p>
+        </div>
+      </section>
+
+      <section class="studio__section" id="education" aria-labelledby="education-title">
+        <h2 id="education-title">Education and Experience</h2>
+        <div class="studio__grid">
+        <div>
+        <dl class="catalogue">
+          <div><dt>Institution</dt><dd>University of Wollongong</dd></div>
+          <div><dt>Degree</dt><dd>Bachelor of Creative Arts (Visual Arts and Design)</dd></div>
+          <div><dt>Graduating</dt><dd>Nov. 26</dd></div>
+        </dl>
+        </div>
+        <div class="placard studio__resume">
+          <p class="studio__body">Throughout the duration of my three-year degree, I have completed a number of projects spanning visual communications design. My practice explores brand identity, UX/UI, print media and digital systems, developed through client style briefs. Across these projects, I bring the same attention to detail and restraint to every brief, creating interactions and identities that feel like more than the sum of their parts.</p>
+          <div class="studio__resume-foot">
+            <p class="placard__eyebrow">Resume</p>
+            <p class="studio__body">Would you like a copy of my resume?</p>
+            <a class="btn btn--dark btn--sm" href="assets/Mercadies-Resume-2026.pdf" download="Mercadies-Resume-2026.pdf" aria-label="Download resume as PDF">Download</a>
+          </div>
+        </div>
+        </div>
+      </section>
+
+      <section class="studio__section" id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Let’s collaborate.</h2>
+        <div class="contact-row">
+          <a class="btn btn--dark btn--sm" href="https://www.linkedin.com/in/mercadies-mcdonald-653913278" target="_blank" rel="noopener" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+          <a class="btn btn--light btn--sm" href="mailto:mercadiesjewel@gmail.com">Email</a>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const walk = document.querySelector('#gallery .walk');
+    const pieces = [...walk.querySelectorAll('.piece')];
+
+    const current = () => {
+      const mid = walk.scrollLeft + walk.clientWidth / 2;
+      let best = 0, dist = Infinity;
+      pieces.forEach((p, i) => {
+        const c = p.offsetLeft + p.offsetWidth / 2;
+        if (Math.abs(c - mid) < dist) { dist = Math.abs(c - mid); best = i; }
+      });
+      return best;
+    };
+    const maxScroll = () => walk.scrollWidth - walk.clientWidth;
+    const go = (i) => {
+      const target = pieces[Math.max(0, Math.min(pieces.length - 1, i))];
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+    };
+    walk.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(current() + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(current() - 1); }
+    });
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('is-in'); revealObserver.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.studio__intro, .studio__section').forEach((el) => revealObserver.observe(el));
+    setTimeout(() => document.querySelectorAll('.studio__intro, .studio__section').forEach((el) => el.classList.add('is-in')), 2500);
+    document.querySelectorAll('img').forEach((img) => {
+      const done = () => img.classList.add('is-loaded');
+      if (img.complete && img.naturalWidth) done();
+      else img.addEventListener('load', done, { once: true });
+    });
+    const hoverPan =!reduce && matchMedia('(hover: hover) and (pointer: fine) and (min-width: 721px)').matches;
+    if (hoverPan) {
+      document.documentElement.classList.add('gallery-hover');
+      let target = 0, current = 0, vel = 0, raf = null;
+      const frame = () => {
+        if (vel) target = Math.max(0, Math.min(maxScroll(), target + vel));
+        current += (target - current) * 0.1;
+        if (Math.abs(target - current) < 0.5) current = target;
+        walk.scrollLeft = current;
+        const mid = current + walk.clientWidth / 2;
+        pieces.forEach((p) => {
+          const d = Math.max(-1.2, Math.min(1.2, (p.offsetLeft + p.offsetWidth / 2 - mid) / (walk.clientWidth * 0.5)));
+          const near = 1 - Math.min(1, Math.abs(d));
+          p.style.transform = `translateZ(${(-Math.min(1, Math.abs(d)) * 120).toFixed(1)}px) rotateY(${(-d * 34).toFixed(2)}deg)`;
+          p.style.opacity = (0.55 + near * 0.45).toFixed(3);
+        });
+        raf = (vel || current !== target) ? requestAnimationFrame(frame) : null;
+      };
+      walk.addEventListener('pointermove', (e) => {
+        const r = walk.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        vel = x < 0.35 ? -Math.min(1, (0.35 - x) / 0.2) * 9 : x > 0.65 ? Math.min(1, (x - 0.65) / 0.2) * 9 : 0;
+        if (vel && !raf) { current = target = walk.scrollLeft; raf = requestAnimationFrame(frame); }
+      });
+      walk.addEventListener('pointerleave', () => { vel = 0; });
+      walk.addEventListener('scroll', () => {
+        if (raf || Math.abs(walk.scrollLeft - current) < 1) return;
+        target = current = walk.scrollLeft;
+        raf = requestAnimationFrame(frame);
+      }, { passive: true });
+      frame();
+    }
+  </script>
+</body>
+</html>

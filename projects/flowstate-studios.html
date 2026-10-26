@@ -4,103 +4,116 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Flowstate Studios — Mercadies Portfolio</title>
-  <meta name="description" content="Flowstate Studios: a fluid brand identity system by Mercadies, built from a slinky's continuous movement.">
+  <meta name="description" content="Flowstate Studios: a collaborative brand identity for a fictional design studio, built from a slinky's continuous movement.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Inter,Arial,sans-serif' font-weight='900' font-size='40' fill='%23f6f6f6'%3EM%3C/text%3E%3C/svg%3E">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <script>
-    // Best guess before first paint (main.js then measures the real words):
-    // narrow screens start with the hamburger menu so the bar never flashes
-    if (innerWidth <= 1100) document.documentElement.classList.add('nav-compact');
-    // Hide the animated pieces before first paint so nothing flashes;
-    // main.js plays them.
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('js-intro', 'nav-intro', 'motion');
-    }
-  </script>
+  <link rel="stylesheet" href="gallery.css">
 </head>
 <body>
-  <div class="ambient" aria-hidden="true">
-    <span class="ambient__orbit ambient__orbit--a"><span class="ambient__blob"></span></span>
-    <span class="ambient__orbit ambient__orbit--b"><span class="ambient__blob"></span></span>
-    <span class="ambient__orbit ambient__orbit--c"><span class="ambient__blob"></span></span>
-    <span class="ambient__orbit ambient__orbit--d"><span class="ambient__blob"></span></span>
-  </div>
-  <div class="grain" aria-hidden="true"></div>
+  <a href="#main" class="skip-link">Skip to main content</a>
 
-  <header class="site-header site-header--over-image">
-    <nav class="nav page" aria-label="Primary">
-      <a class="nav__brand" href="../index.html" aria-label="Back to the home page">M</a>
-      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul id="nav-menu">
-        <li><a href="../index.html#about">About Me</a></li>
-        <li><a href="../index.html#education">Education and Experience</a></li>
-        <li><a href="../index.html#projects" class="is-current" data-default-current>Design Projects</a></li>
-        <li><a href="../artworks.html">Artworks</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+  <header class="p-nav">
+    <a class="p-nav__brand" href="../studio-preview.html" aria-label="Back to the studio">M</a>
+    <nav class="p-nav__links" aria-label="Studio">
+      <a href="../studio-preview.html#gallery">Work</a>
+      <a href="../studio-preview.html#about">About Me</a>
+      <a href="../studio-preview.html#education">Education</a>
+      <a href="../studio-preview.html#contact">Contact</a>
     </nav>
   </header>
 
-  <main>
-    <div class="project-hero">
-      <img src="../assets/project-signage.png" width="2176" height="1639"
-           alt="Flowstate Studios logo on an outdoor hanging sign against a blue sky">
-    </div>
+  <main id="main">
+    <section class="p-intro" aria-label="Project title">
+      <p class="p-eyebrow">Brand Identity 2026</p>
+      <h1 class="p-title">Flowstate Studios</h1>
+      <p class="p-tagline">GET IN THE ZONE</p>
+    </section>
 
-    <div class="page project">
-      <section class="project-title" data-intro aria-label="Project title">
-        <h1 data-intro-shadow>
-          <span class="sr-only">Flowstate Studios</span>
-          <span class="hero__chars" aria-hidden="true"><span style="--i:0">F</span><span style="--i:1">l</span><span style="--i:2">o</span><span style="--i:3">w</span><span style="--i:4">s</span><span style="--i:5">t</span><span style="--i:6">a</span><span style="--i:7">t</span><span style="--i:8">e</span><span style="--i:9">&nbsp;</span><span style="--i:10">S</span><span style="--i:11">t</span><span style="--i:12">u</span><span style="--i:13">d</span><span style="--i:14">i</span><span style="--i:15">o</span><span style="--i:16">s</span></span>
-        </h1>
-      </section>
+    <section class="p-row" aria-label="Hero work">
+      <figure class="p-frame" style="margin: 0;">
+        <img src="../assets/project-signage.png" width="2176" height="1639" loading="lazy"
+             alt="Flowstate Studios logo on an outdoor hanging sign against a blue sky">
+      </figure>
+      <div class="p-label">
+        <p class="p-label__cat">No. 02 · Room I · Design</p>
+        <p class="p-label__title">Flowstate Studios</p>
+        <p class="p-label__artist">Mercadies, with Olivia Galea, Rebekah Oehm &amp; Zali Lyth</p>
+        <p>Brand identity, 2026</p>
+        <p class="p-label__desc">A fluid identity system that translates a slinky’s continuous movement into a suite of logo variations.</p>
+      </div>
+    </section>
 
-      <section class="project-intro" data-reveal-group>
-        <div class="project-intro__text" data-reveal>
-          <h2 class="project-intro__heading">Brand Identity 2026:</h2>
-          <p class="project-intro__tagline">GET IN THE ZONE</p>
-          <p class="project-intro__body">Flowstate Studios required a brand identity for a fictional design studio that communicated adaptability, movement and flow without relying on an animated logo mark. Flowstate Studios identity system was developed by translating a slinkie's continuous movement and flexibility into a suite of logo variations. This allowed for the logo mark to shift and adapt across applications rather than remaining fixed. This project was a team effort at its core. My team members and I all contributed to the final outcome of this project. However I played a major role setting up and applying the design system, including logo suite, typography and collateral, ensuring consistency across every touch point. The result was a fluid identity system with primary and subordinate logo marks, colour suite, typography system and applied collateral including: business cards, letterheads, email footers, website mockup, animation stills and promotional pieces.</p>
-        </div>
-        <div class="project-intro__media" data-reveal style="--d:1">
-          <img class="project-intro__mockup" src="../assets/flowstate/mockup-business-cards-pair.jpg" width="600" height="400" loading="lazy"
-               alt="Flowstate Studios business card front and back mockup">
-        </div>
-      </section>
+    <section class="p-section" aria-labelledby="about-flowstate">
+      <h2 id="about-flowstate">About the project</h2>
+      <p class="p-body">Flowstate Studios required a brand identity for a fictional design studio that communicated adaptability, movement and flow without relying on an animated logo mark. The identity system was developed by translating a slinky’s continuous movement and flexibility into a suite of logo variations. This allowed the logo mark to shift and adapt across applications rather than remaining fixed.</p>
+      <p class="p-body">This project was a team effort at its core. My team members and I all contributed to the final outcome. I played a major role setting up and applying the design system, including the logo suite, typography and collateral, ensuring consistency across every touch point. The result was a fluid identity system with primary and subordinate logo marks, a colour suite, a typography system and applied collateral.</p>
+    </section>
 
-      <section class="project-mockups" data-reveal-group aria-label="Applied collateral">
-        <div class="project-mockups__devices" data-reveal style="--d:1">
-          <img class="project-mockups__iphone" src="../assets/flowstate/mockup-iphone.jpg" width="400" height="500" loading="lazy"
-               alt="iPhone showing Flowstate Studios mobile experience">
-          <img class="project-mockups__macbook" src="../assets/flowstate/mockup-macbook.jpg" width="600" height="400" loading="lazy"
-               alt="MacBook showing Flowstate Studios website">
+    <section class="p-section" aria-labelledby="works-flowstate">
+      <h2 id="works-flowstate">Applied collateral</h2>
+      <div class="p-grid">
+        <div>
+          <figure class="p-frame" style="margin: 0;">
+            <img src="../assets/flowstate/mockup-business-cards-pair.jpg" width="600" height="400" loading="lazy"
+                 alt="Flowstate Studios business card front and back mockup">
+          </figure>
+          <div class="p-label">
+            <p class="p-label__cat">No. 02.1 · Collateral</p>
+            <p class="p-label__title">Business cards</p>
+          </div>
         </div>
-      </section>
+        <div>
+          <figure class="p-frame" style="margin: 0;">
+            <img src="../assets/flowstate/mockup-business-cards-scatter.jpg" width="600" height="400" loading="lazy"
+                 alt="Flowstate Studios business cards scattered across a surface">
+          </figure>
+          <div class="p-label">
+            <p class="p-label__cat">No. 02.2 · Collateral</p>
+            <p class="p-label__title">Collateral study</p>
+          </div>
+        </div>
+        <div>
+          <figure class="p-frame" style="margin: 0;">
+            <img src="../assets/flowstate/mockup-iphone.jpg" width="400" height="500" loading="lazy"
+                 alt="iPhone showing Flowstate Studios mobile experience">
+          </figure>
+          <div class="p-label">
+            <p class="p-label__cat">No. 02.3 · Digital</p>
+            <p class="p-label__title">Mobile</p>
+          </div>
+        </div>
+        <div>
+          <figure class="p-frame" style="margin: 0;">
+            <img src="../assets/flowstate/mockup-macbook.jpg" width="600" height="400" loading="lazy"
+                 alt="MacBook showing the Flowstate Studios website">
+          </figure>
+          <div class="p-label">
+            <p class="p-label__cat">No. 02.4 · Digital</p>
+            <p class="p-label__title">Website</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section class="project-ack" data-reveal-group>
-        <h2 class="project-ack__heading" data-reveal>Acknowledgement</h2>
-        <div data-reveal style="--d:1">
-          <p class="project-ack__body">Flowstate Studios was a collaborative brand identity project, developed alongside cofounders Olivia Galea, Rebekah Oehm, and Zali Lyth.</p>
-          <p class="project-ack__body">Thank you to Olivia, for her sharp eye and instinct for pushing our concepts further. To Rebekah, for the energy and openness she brought to every critique. To Zali, for grounding our ideas with clarity when the work needed structure.</p>
-        </div>
-      </section>
-    </div>
+    <section class="p-section" aria-labelledby="process-flowstate">
+      <h2 id="process-flowstate">Process</h2>
+      <figure class="p-frame p-placeholder" style="margin: 0;">Logo studies and sketches, to come</figure>
+    </section>
 
-    <div class="page">
-      <section class="contact" id="contact" data-reveal-group>
-        <h2 class="contact__title" data-reveal>Let’s Chat!</h2>
-        <div class="contact__links">
-          <a class="btn btn--dark btn--sm" href="https://www.linkedin.com/in/mercadies-mcdonald-653913278" target="_blank" rel="noopener" data-reveal style="--d:1">LinkedIn</a>
-          <a class="btn btn--light btn--sm" href="mailto:mercadiesjewel@gmail.com" data-reveal style="--d:1">Email</a>
-        </div>
-      </section>
-    </div>
+    <section class="p-section" aria-labelledby="ack-flowstate">
+      <h2 id="ack-flowstate">Acknowledgement</h2>
+      <p class="p-body">Flowstate Studios was a collaborative brand identity project, developed alongside cofounders Olivia Galea, Rebekah Oehm, and Zali Lyth.</p>
+      <p class="p-body">Thank you to Olivia, for her sharp eye and instinct for pushing our concepts further. To Rebekah, for the energy and openness she brought to every critique. To Zali, for grounding our ideas with clarity when the work needed structure.</p>
+      <a class="p-next" href="caddyshack-project.html">Next work: Caddyshack Project →</a>
+    </section>
+
+    <section class="p-contact" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Let’s collaborate.</h2>
+      <div class="contact-row">
+        <a class="btn btn--dark btn--sm" href="https://www.linkedin.com/in/mercadies-mcdonald-653913278" target="_blank" rel="noopener" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+        <a class="btn btn--light btn--sm" href="mailto:mercadiesjewel@gmail.com">Email</a>
+      </div>
+    </section>
   </main>
-
-  <script src="../main.js"></script>
 </body>
 </html>
