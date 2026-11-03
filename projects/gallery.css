@@ -28,12 +28,31 @@
   display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   gap: var(--space-700); align-items: end; padding: 0 var(--gutter);
 }
+.p-row--stack { grid-template-columns: minmax(0, 1fr); gap: var(--space-500); padding-bottom: var(--space-900); }
+.p-row--stack .p-label { max-width: 540px; }
 .p-frame {
   margin: 0; padding: var(--space-400);
   background: var(--surface-light); border: 1px solid rgba(42, 42, 42, 0.08);
   box-shadow: var(--shadow-card);
 }
-.p-frame img { display: block; width: 100%; height: auto; }
+.p-frame { overflow: hidden; transition: transform 0.9s var(--ease-expo), box-shadow 0.9s ease-out; }
+.p-frame img { display: block; width: 100%; height: auto; transition: transform 1.4s var(--ease-expo); }
+.p-frame:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -28px rgba(42, 42, 42, 0.35); }
+.p-frame:hover img { transform: scale(1.015); }
+
+.js .p-section > *, .js .p-row > * { opacity: 0; transform: translateY(20px); transition: opacity 1.2s var(--ease-expo), transform 1.4s var(--ease-expo); }
+.js .p-section.is-in > *, .js .p-row.is-in > * { opacity: 1; transform: none; }
+.js .p-section.is-in > *:nth-child(2) { transition-delay: 0.12s; }
+.js .p-section.is-in > *:nth-child(3) { transition-delay: 0.24s; }
+
+.wall-label__title { transition: color 0.6s ease-out; }
+.wall-label:hover .wall-label__title { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .p-frame, .p-frame img, .p-next, .wall-label__title, .js .p-section > *, .js .p-row > * { transition: none !important; transform: none !important; opacity: 1 !important; }
+  .p-frame:hover, .p-frame:hover img { transform: none; }
+}
+@media (hover: none) { .p-frame:hover { transform: none; box-shadow: var(--shadow-card); } .p-frame:hover img { transform: none; } }
 .p-frame--tint { background: #ebeae6; }
 .p-placeholder {
   aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; text-align: center;
@@ -54,6 +73,13 @@
 .p-label__artist { font-style: italic; color: var(--ink); }
 .p-label__desc { margin-top: var(--space-200); padding-top: var(--space-200); border-top: 1px solid rgba(42, 42, 42, 0.12); }
 
+.wall-label { max-width: 540px; display: grid; row-gap: var(--space-100); font-size: var(--text-body); line-height: var(--lh-body); color: var(--ink); }
+.wall-label p { margin: 0; }
+.wall-label__name { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.wall-label__title { font-family: var(--font-hero); font-size: 26px; line-height: 1.1; color: var(--ink); margin-top: var(--space-100); }
+.wall-label__sale { color: var(--accent); margin-top: var(--space-100); }
+.wall-label__text { margin-top: var(--space-200); padding-top: var(--space-200); border-top: 1px solid rgba(42, 42, 42, 0.12); }
+
 .p-section { padding: var(--space-900) var(--gutter); border-top: 1px solid rgba(42, 42, 42, 0.06); }
 .p-section h2 {
   font-family: var(--font-hero); font-weight: 400; font-size: var(--text-heading); line-height: var(--lh-heading);
@@ -68,8 +94,11 @@
 .p-next {
   display: inline-block; margin-top: var(--space-600);
   font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink);
-  border-bottom: 1px solid var(--accent); padding-bottom: 4px;
+  padding-bottom: 4px;
+  background: linear-gradient(var(--accent), var(--accent)) left bottom / 100% 1px no-repeat;
+  transition: background-size 0.6s var(--ease-expo), color 0.4s ease-out;
 }
+.p-next:hover, .p-next:focus-visible { background-size: 100% 1px; color: var(--accent); }
 .p-next:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
 .p-catalogue { margin: 0; max-width: 600px; border-top: 1px solid rgba(42, 42, 42, 0.2); }
@@ -87,7 +116,6 @@
   line-height: 0.98; letter-spacing: -0.02em; margin: 0 0 var(--space-600);
 }
 .p-contact .contact-row { display: flex; gap: var(--space-200); flex-wrap: wrap; }
-.p-contact .btn--sm { padding: 12px 26px; font-size: 13px; font-weight: 500; min-width: 136px; }
 
 @media (max-width: 900px) {
   .p-row, .p-grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-500); }

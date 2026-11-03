@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daisy, 2026 — Mercadies Portfolio</title>
+  <meta name="description" content="Daisy, 2026: a series of four oil on canvas paintings on everyday acts of care.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Inter,Arial,sans-serif' font-weight='900' font-size='40' fill='%23f6f6f6'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../projects/gallery.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="p-nav">
+    <a class="p-nav__brand" href="../index.html" aria-label="Back to the studio">M</a>
+    <nav class="p-nav__links" aria-label="Studio">
+      <a href="../index.html#gallery">Work</a>
+      <a href="../index.html#about">About Me</a>
+      <a href="../index.html#education">Education</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="p-intro" aria-label="Painting title">
+      <p class="p-eyebrow">Room III · Painting</p>
+      <h1 class="p-title">Daisy, 2026</h1>
+      <p class="p-tagline">Oil on canvas · series of four</p>
+    </section>
+
+    <section class="p-section" aria-labelledby="series">
+      <h2 id="series">The series</h2>
+      <figure class="p-frame" style="margin: 0 0 var(--space-700);">
+        <img src="daisy-1.jpg" width="2200" height="1840" loading="lazy" alt="Daisy 2026, painting one: a suburban road with a red-trunked tree, houses and a grey road">
+      </figure>
+      <figure class="p-frame" style="margin: 0 0 var(--space-700);">
+        <img src="daisy-2.jpg" width="2200" height="1840" loading="lazy" alt="Daisy 2026, painting two: a grey wall with an orange window frame above a red-orange ground and a brown shape">
+      </figure>
+      <figure class="p-frame" style="margin: 0 0 var(--space-700);">
+        <img src="daisy-3.jpg" width="2200" height="1840" loading="lazy" alt="Daisy 2026, painting three: angular blue and dark navy planes above an orange ground">
+      </figure>
+      <figure class="p-frame" style="margin: 0;">
+        <img src="daisy-4.jpg" width="2200" height="1840" loading="lazy" alt="Daisy 2026, painting four: an orange-railed fence receding along a grey path towards a blue sky and distant hills">
+      </figure>
+    </section>
+
+    <section class="p-section" aria-labelledby="about-daisy">
+      <h2 id="about-daisy">About the work</h2>
+      <div class="wall-label">
+        <p class="wall-label__name">Mercadies McDonald</p>
+        <p class="wall-label__title">Daisy, 2026</p>
+        <p class="wall-label__place">Lives and works on Camden and Wollongong, Dharawal Country</p>
+        <p class="wall-label__medium">Oil on canvas</p>
+        <p class="wall-label__dims">Series of four, each 40.6 × 50.8 × 5.0 cm</p>
+        <p class="wall-label__sale">For sale after exhibition</p>
+        <p class="wall-label__text">Daisy, 2026 is a series of four oil on canvas paintings that return to everyday places where mundane acts of care go unnoticed. Drawing on family memory and caring for someone close, the works use geometry, simplification and expressive brushstrokes to hold the viewer in prolonged attention. Each time the canvas is touched, a small act of care is performed through laboured repetition. By slowing the viewer down, the series asks them to notice that sometimes extra help is needed.</p>
+      </div>
+    </section>
+
+    <section class="p-section" aria-labelledby="enquire">
+      <h2 id="enquire">Enquire about this work</h2>
+      <p class="p-body">Daisy 2026 is available to purchase after the exhibition. Price on enquiry.</p>
+      <a class="p-next" href="mailto:mercadiesjewel@gmail.com?subject=Enquiry%20about%20Daisy%202026">Email about this painting →</a>
+    </section>
+
+    <section class="p-contact" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Let’s collaborate.</h2>
+      <div class="contact-row">
+        <a class="btn btn--dark btn--sm" href="https://www.linkedin.com/in/mercadies-mcdonald-653913278" target="_blank" rel="noopener" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+        <a class="btn btn--light btn--sm" href="mailto:mercadiesjewel@gmail.com">Email</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.p-section, .p-row').forEach((el) => io.observe(el));
+    setTimeout(() => document.querySelectorAll('.p-section, .p-row').forEach((el) => el.classList.add('is-in')), 3000);
+  </script>
+</body>
+</html>

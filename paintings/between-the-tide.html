@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Between the Tide, 2026 — Mercadies Portfolio</title>
+  <meta name="description" content="Between the Tide, 2026: two oil on canvas seascapes exploring uncertainty and the transition into adulthood.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Inter,Arial,sans-serif' font-weight='900' font-size='40' fill='%23f6f6f6'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../projects/gallery.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <header class="p-nav">
+    <a class="p-nav__brand" href="../index.html" aria-label="Back to the studio">M</a>
+    <nav class="p-nav__links" aria-label="Studio">
+      <a href="../index.html#gallery">Work</a>
+      <a href="../index.html#about">About Me</a>
+      <a href="../index.html#education">Education</a>
+      <a href="../index.html#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="p-intro" aria-label="Painting title">
+      <p class="p-eyebrow">Room II · Painting</p>
+      <h1 class="p-title">Between the Tide, 2026</h1>
+      <p class="p-tagline">Oil on canvas · two panels</p>
+    </section>
+
+    <section class="p-section" aria-labelledby="panel-one">
+      <h2 id="panel-one">Panel one</h2>
+      <figure class="p-frame" style="margin: 0;">
+        <img src="between-the-tide-wave.jpg" width="1700" height="1120" loading="lazy" alt="Between the Tide 2026, left panel: a dark blue seascape with two breaking waves and white foam">
+      </figure>
+    </section>
+
+    <section class="p-section" aria-labelledby="panel-two">
+      <h2 id="panel-two">Panel two</h2>
+      <figure class="p-frame" style="margin: 0;">
+        <img src="between-the-tide-sea.jpg" width="1740" height="1135" loading="lazy" alt="Between the Tide 2026, right panel: a dark stormy sky above a horizon and a rippling blue sea">
+      </figure>
+    </section>
+
+    <section class="p-section" aria-labelledby="together">
+      <h2 id="together">Together</h2>
+      <figure class="p-frame" style="margin: 0;">
+        <img src="between-the-tide-wall.jpg" width="2000" height="1946" loading="lazy" alt="Between the Tide 2026 hung on a white gallery wall, both panels side by side">
+      </figure>
+    </section>
+
+    <section class="p-section" aria-labelledby="didactic">
+      <h2 id="didactic">About the work</h2>
+      <div class="wall-label">
+        <p class="wall-label__name">Mercadies McDonald</p>
+        <p class="wall-label__title">Between the Tide, 2026</p>
+        <p class="wall-label__place">Lives and works on Camden and Wollongong, Dharawal Country</p>
+        <p class="wall-label__medium">Oil on canvas</p>
+        <p class="wall-label__dims">Two panels, each 60.9 × 91.4 × 5 cm</p>
+        <p class="wall-label__sale">For sale · Price on enquiry</p>
+        <p class="wall-label__text">Between the Tide 2026 explores the emotional experience of living in uncertainty during the transition into adulthood. Using the ocean as a metaphor, the two seascapes set turbulence against stillness, and tension against release. Shaped by financial instability and competing expectations, it asks how a painted seascape can evoke emotional overwhelm. Rather than asking viewers to understand uncertainty intellectually, it invites them to inhabit it through their own perception. Built through slow layering, blending and dry brushing, with expressive strokes left visible, the paintings make the act of painting part of the experience.</p>
+      </div>
+    </section>
+
+    <section class="p-section" aria-labelledby="enquire">
+      <h2 id="enquire">Enquire about this work</h2>
+      <p class="p-body">Between the Tide 2026 is available to purchase. Price on enquiry.</p>
+      <a class="p-next" href="mailto:mercadiesjewel@gmail.com?subject=Enquiry%20about%20Between%20the%20Tide%202026">Email about this painting →</a>
+    </section>
+
+    <section class="p-contact" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Let’s collaborate.</h2>
+      <div class="contact-row">
+        <a class="btn btn--dark btn--sm" href="https://www.linkedin.com/in/mercadies-mcdonald-653913278" target="_blank" rel="noopener" aria-label="LinkedIn (opens in new tab)">LinkedIn</a>
+        <a class="btn btn--light btn--sm" href="mailto:mercadiesjewel@gmail.com">Email</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.p-section, .p-row').forEach((el) => io.observe(el));
+    setTimeout(() => document.querySelectorAll('.p-section, .p-row').forEach((el) => el.classList.add('is-in')), 3000);
+  </script>
+</body>
+</html>

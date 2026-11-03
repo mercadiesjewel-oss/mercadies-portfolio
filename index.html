@@ -47,6 +47,9 @@
     .piece { flex: 0 0 min(56vw, 640px); scroll-snap-align: center; margin: 0; }
     .piece__stage { height: clamp(520px, 66vh, 640px); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
     .piece__stage--wall { justify-content: center; }
+    .piece--diptych { flex-basis: min(64vw, 760px); }
+    .diptych { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-300); width: 100%; }
+    .diptych .work { aspect-ratio: 3 / 2; }
 
     .work {
       position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden;
@@ -173,7 +176,6 @@
     .contact-row { display: flex; gap: var(--space-300); flex-wrap: wrap; }
     #contact h2 { font-size: clamp(36px, 4vw, 52px); font-weight: 500; line-height: 0.98; letter-spacing: -0.02em; margin-bottom: var(--space-700); }
     .contact-row { gap: var(--space-200); }
-    .contact-row .btn--sm { padding: 12px 26px; font-size: 13px; font-weight: 500; min-width: 136px; }
 
     @media (max-width: 900px) {
       .studio__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-500); }
@@ -237,23 +239,21 @@
             </a>
             <figcaption class="plaque"><em>Room I · Design</em><strong>Caddyshack Project</strong>Sexual health campaign · 2026</figcaption>
           </figure>
-          <figure class="piece" data-kind="Painting">
-            <div class="piece__stage piece__stage--wall">
-              <div class="work work--empty">Painting 01</div>
-            </div>
-            <figcaption class="plaque"><em>Room II · Painting</em><strong>Untitled Study</strong>Oil on canvas · to come</figcaption>
+          <figure class="piece piece--diptych" data-kind="Painting">
+            <a href="paintings/between-the-tide.html">
+              <div class="piece__stage piece__stage--wall">
+                <div class="work"><img src="paintings/between-the-tide-wall.jpg" width="2000" height="1946" loading="lazy" alt="Between the Tide 2026, two oil on canvas seascapes side by side on a white wall"></div>
+              </div>
+            </a>
+            <figcaption class="plaque"><em>Room II · Painting</em><strong>Between the Tide, 2026</strong>Oil on canvas · two panels · For sale</figcaption>
           </figure>
           <figure class="piece" data-kind="Painting">
-            <div class="piece__stage piece__stage--wall">
-              <div class="work work--empty">Painting 02</div>
-            </div>
-            <figcaption class="plaque"><em>Room II · Painting</em><strong>Untitled Study</strong>Oil on canvas · to come</figcaption>
-          </figure>
-          <figure class="piece" data-kind="Painting">
-            <div class="piece__stage piece__stage--wall">
-              <div class="work work--empty">Painting 03</div>
-            </div>
-            <figcaption class="plaque"><em>Room II · Painting</em><strong>Untitled Study</strong>Oil on canvas · to come</figcaption>
+            <a href="paintings/daisy.html">
+              <div class="piece__stage piece__stage--wall">
+                <div class="work"><img src="paintings/daisy-1.jpg" width="2200" height="1840" loading="lazy" alt="Daisy 2026, a series of four oil on canvas paintings; the first painting shows a suburban road and a red-trunked tree"></div>
+              </div>
+            </a>
+            <figcaption class="plaque"><em>Room III · Painting</em><strong>Daisy, 2026</strong>Oil on canvas · series of four · For sale after exhibition</figcaption>
           </figure>
         </div>
       </section>
