@@ -9,12 +9,16 @@
   <script>document.documentElement.classList.add('js');</script>
   <style>
     .studio__nav {
-      position: sticky; top: 0; z-index: 20;
+      position: sticky; top: 0; z-index: 20; isolation: isolate;
       display: flex; align-items: center; justify-content: space-between; gap: var(--space-300);
       padding: var(--space-300) var(--gutter);
-      background: rgba(245, 245, 245, 0.92);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(42, 42, 42, 0.06);
+    }
+    .studio__nav::before {
+      content: ""; position: absolute; inset: 0 0 -28px 0; z-index: -1; pointer-events: none;
+      background: linear-gradient(to bottom, rgba(245, 245, 245, 0.75), rgba(245, 245, 245, 0));
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+      mask-image: linear-gradient(to bottom, #000 55%, transparent);
     }
     .studio__brand { font-family: var(--font-hero); font-size: 24px; color: var(--ink); }
     .studio__links { display: flex; flex-wrap: wrap; gap: var(--space-300); justify-content: flex-end; }
