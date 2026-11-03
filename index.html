@@ -32,7 +32,7 @@
     }
     .studio__intro small {
       display: block; margin-top: var(--space-200);
-      font-family: var(--font-display); font-size: 16px; color: rgba(42, 42, 42, 0.6);
+      font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--accent);
     }
 
     .walk {
@@ -44,10 +44,11 @@
     .walk::-webkit-scrollbar { display: none; }
     .walk:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 
-    .piece { flex: 0 0 min(56vw, 640px); scroll-snap-align: center; margin: 0; }
+    .grain { z-index: 0; }
+    .studio { position: relative; z-index: 1; }
+    .piece { flex: 0 0 min(60vw, 760px); scroll-snap-align: center; margin: 0; }
     .piece__stage { height: clamp(520px, 66vh, 640px); display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
     .piece__stage--wall { justify-content: center; }
-    .piece--diptych { flex-basis: min(64vw, 760px); }
     .diptych { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-300); width: 100%; }
     .diptych .work { aspect-ratio: 3 / 2; }
 
@@ -84,8 +85,6 @@
     .piece a:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
 
 
-    .piece--lg { flex-basis: min(60vw, 760px); }
-    .piece--sm { flex-basis: min(42vw, 440px); align-self: center; }
     .placard {
       max-width: 520px; padding: 0;
     }
@@ -124,6 +123,10 @@
       100% { opacity: 1; transform: none; }
     }
     .intro-line { display: block; animation: intro-rise 1.4s var(--ease-expo) both; }
+    .intro-line--hover { display: inline-block; animation-fill-mode: backwards; transition: transform 0.7s var(--ease-expo), color 0.7s ease-out, letter-spacing 0.7s var(--ease-expo); }
+    @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+      .intro-line--hover:hover { transform: translateY(-3px); color: var(--accent); letter-spacing: 0.005em; }
+    }
     .intro-line:nth-child(1) { animation-delay: calc(var(--t0) + 0.1s); }
     .intro-line:nth-child(2) { animation-delay: calc(var(--t0) + 0.3s); }
     .intro-line:nth-child(3) { animation-delay: calc(var(--t0) + 0.6s); }
@@ -192,6 +195,7 @@
   </style>
 </head>
 <body>
+  <div class="grain" aria-hidden="true"></div>
   <div class="studio">
     <header class="studio__nav">
       <a class="studio__brand" href="#top" aria-label="Back to top of studio">M</a>
@@ -205,15 +209,15 @@
 
     <main id="top">
       <section class="studio__intro" aria-label="Welcome">
-        <span class="intro-line">Hey, I’m Mercadies.</span>
-        <span class="intro-line">Welcome to my studio.</span>
+        <span class="intro-line intro-line--hover">Hey, I’m Mercadies!</span>
+        <span class="intro-line intro-line--hover">Welcome to my studio.</span>
         <small class="intro-line">Designing from canvas to screen</small>
       </section>
 
       <section id="gallery" aria-label="Gallery">
         <p class="walk-cue" aria-hidden="true">Move to the edges to walk through</p>
         <div class="walk" tabindex="0" aria-label="Design work and paintings">
-          <figure class="piece piece--sculpture piece--lg" data-kind="Design">
+          <figure class="piece piece--sculpture" data-kind="Design">
             <a href="projects/primer.html">
               <div class="piece__stage">
                 <div class="work work--type" aria-hidden="true"><span>01</span></div>
@@ -229,15 +233,15 @@
             </a>
             <figcaption class="plaque"><em>Room I · Design</em><strong>Flowstate Studios</strong>Brand identity · 2026</figcaption>
           </figure>
-          <figure class="piece piece--sculpture piece--sm" data-kind="Design">
+          <figure class="piece piece--sculpture" data-kind="Design">
             <a href="projects/caddyshack-project.html">
               <div class="piece__stage">
-                <div class="work"><img src="assets/caddyshack/social-real-love.png" width="732" height="499" alt="Caddyshack Project sexual health campaign shown as social media posts on a phone" loading="lazy"></div>
+                <div class="work"><img src="assets/caddyshack/flat-lay.jpg" width="2000" height="1333" alt="Caddyshack postcards laid out on a linen cloth beside a cup of coffee" loading="lazy"></div>
                               </div>
             </a>
             <figcaption class="plaque"><em>Room I · Design</em><strong>Caddyshack Project</strong>Sexual health campaign · 2026</figcaption>
           </figure>
-          <figure class="piece piece--diptych" data-kind="Painting">
+          <figure class="piece" data-kind="Painting">
             <a href="paintings/between-the-tide.html">
               <div class="piece__stage piece__stage--wall">
                 <div class="work"><img src="paintings/between-the-tide-wall.jpg" width="2000" height="1946" loading="lazy" alt="Between the Tide 2026, two oil on canvas seascapes side by side on a white wall"></div>
