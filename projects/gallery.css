@@ -90,6 +90,7 @@
 
 .p-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-700) var(--space-600); }
 .p-grid .p-label { max-width: 380px; margin-top: var(--space-300); }
+.p-grid > .p-span { grid-column: 1 / -1; }
 
 .p-next {
   display: inline-block; margin-top: var(--space-600);
