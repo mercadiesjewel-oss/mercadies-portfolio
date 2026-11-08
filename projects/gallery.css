@@ -20,7 +20,12 @@
 }
 .p-nav__links a:hover, .p-nav__links a:focus-visible, .p-nav__links a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); outline: none; }
 
+.grain { z-index: 0; }
+main { position: relative; z-index: 1; }
 .p-intro { padding: var(--space-700) var(--gutter) var(--space-500); }
+.p-title .ch { display: inline-block; opacity: 0; filter: blur(8px); transform: translateY(0.4em); animation: p-ch-in 1.2s var(--ease-expo) both; animation-delay: var(--d, 0s); }
+@keyframes p-ch-in { to { opacity: 1; filter: blur(0); transform: none; } }
+@media (prefers-reduced-motion: reduce) { .p-title .ch { animation: none; opacity: 1; filter: none; transform: none; } }
 .p-eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 var(--space-300); }
 .p-title {
   font-family: var(--font-hero); font-weight: 500; font-size: clamp(44px, 5.5vw, 64px);
