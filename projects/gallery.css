@@ -23,6 +23,7 @@
 .grain { z-index: 0; }
 main { position: relative; z-index: 1; }
 .p-intro { padding: var(--space-700) var(--gutter) var(--space-500); }
+.p-title .w { display: inline-block; white-space: nowrap; }
 .p-title .ch { display: inline-block; opacity: 0; filter: blur(8px); transform: translateY(0.4em); animation: p-ch-in 1.2s var(--ease-expo) both; animation-delay: var(--d, 0s); }
 @keyframes p-ch-in { to { opacity: 1; filter: blur(0); transform: none; } }
 @media (prefers-reduced-motion: reduce) { .p-title .ch { animation: none; opacity: 1; filter: none; transform: none; } }

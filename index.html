@@ -136,6 +136,7 @@
       100% { opacity: 1; transform: none; }
     }
     .intro-line { display: block; }
+    .w { display: inline-block; white-space: nowrap; }
     .js .ch {
       display: inline-block; opacity: 0; filter: blur(8px); transform: translateY(0.4em);
       animation: ch-in 1.2s var(--ease-expo) both; animation-delay: var(--d, 0s);
@@ -236,8 +237,8 @@
           <figure class="piece piece--sculpture" data-kind="Design">
             <a href="projects/primer.html">
               <div class="piece__stage">
-                <div class="work work--type" aria-hidden="true"><span>01</span></div>
-                              </div>
+                <div class="work"><img src="assets/primer/iphone-mockup-2.jpg" width="2000" height="1499" alt="Primer participant profile for Priya Nathans on a phone, with photo, name and consent card" loading="lazy"></div>
+              </div>
             </a>
             <figcaption class="plaque"><em>Room I · Design</em><strong>Primer</strong>Mobile app design · 2026</figcaption>
           </figure>
@@ -331,12 +332,20 @@
       sr.textContent = text;
       const letters = document.createElement('span');
       letters.setAttribute('aria-hidden', 'true');
-      [...text].forEach((ch, i) => {
-        const s = document.createElement('span');
-        s.className = 'ch';
-        s.textContent = ch === ' ' ? ' ' : ch;
-        s.style.setProperty('--d', `${(0.3 + line * 0.3 + i * 0.035).toFixed(3)}s`);
-        letters.appendChild(s);
+      let i = 0;
+      text.split(' ').forEach((word, w, words) => {
+        const group = document.createElement('span');
+        group.className = 'w';
+        [...word].forEach((ch) => {
+          const s = document.createElement('span');
+          s.className = 'ch';
+          s.textContent = ch;
+          s.style.setProperty('--d', `${(0.3 + line * 0.3 + i * 0.035).toFixed(3)}s`);
+          group.appendChild(s);
+          i++;
+        });
+        letters.appendChild(group);
+        if (w < words.length - 1) { letters.append(' '); i++; }
       });
       el.textContent = '';
       el.append(sr, letters);
