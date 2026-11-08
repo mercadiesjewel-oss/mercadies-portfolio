@@ -92,7 +92,7 @@
     .placard {
       max-width: 520px; padding: 0;
     }
-    .about-row { display: grid; grid-template-columns: minmax(0, 520px) clamp(300px, 26vw, 400px); justify-content: center; gap: var(--space-700); align-items: start; }
+    .about-row { display: grid; grid-template-columns: minmax(0, 1fr) clamp(300px, 26vw, 400px); gap: var(--space-700); align-items: start; }
     .about-photo { margin: 0; padding: 0; background: none; box-shadow: none; transition: transform 0.9s var(--ease-expo); }
     .about-photo img { display: block; width: 100%; height: auto; box-shadow: 0 30px 60px -28px rgba(40, 36, 30, 0.4), 0 8px 18px -10px rgba(40, 36, 30, 0.25); transition: transform 0.9s var(--ease-expo), box-shadow 0.9s ease-out; }
     @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
@@ -100,7 +100,7 @@
       .about-photo:hover img { box-shadow: 0 44px 80px -30px rgba(40, 36, 30, 0.5), 0 12px 24px -10px rgba(40, 36, 30, 0.3); }
     }
     @media (max-width: 900px) { .about-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-500); } .about-photo { max-width: 360px; margin: 0 auto; } }
-    @media (min-width: 1800px) { .about-row { grid-template-columns: minmax(0, 520px) 460px; } }
+    @media (min-width: 1800px) { .about-row { grid-template-columns: minmax(0, 1fr) 460px; } }
     .placard__eyebrow {
       font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--accent); font-weight: 600; margin: 0 0 var(--space-300);
@@ -157,7 +157,7 @@
     .piece .plaque { animation: intro-fade 1.2s var(--ease-expo) both; animation-delay: calc(var(--t0) + 0.6s + var(--n, 0) * 0.25s); }
     .walk-cue {
       font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(42, 42, 42, 0.5);
-      padding: 0 var(--gutter); margin: 0 0 var(--space-200);
+      padding: 0 max(var(--gutter), calc((100% - 1040px) / 2)); margin: 0 0 var(--space-200);
       animation: walk-cue 7s ease-in-out 3.6s both;
     }
     @keyframes walk-cue {
@@ -187,11 +187,15 @@
     .studio__degree span { display: block; }
     .studio__resume { max-width: 600px; align-self: start; display: flex; flex-direction: column; gap: var(--space-500); }
     #education { padding-bottom: var(--space-500); }
-    #education .studio__grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-500); }
-    .studio__resume-foot { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-400); }
-    .studio__resume-foot .placard__eyebrow { margin: 0; }
+    #education .studio__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+    #education .studio__resume { margin-top: var(--space-600); }
+    .studio__resume-foot { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-300); }
+    .studio__resume-foot .placard__eyebrow { margin: 0; font-family: var(--font-hero); font-weight: 400; font-size: 28px; line-height: 1.1; letter-spacing: 0; text-transform: none; color: var(--accent); }
+    .studio__resume-row { display: flex; align-items: center; justify-content: flex-start; gap: var(--space-400); width: 100%; flex-wrap: wrap; }
+    .studio__resume-row .studio__body { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 16px; color: var(--accent); }
     .contact-row { display: flex; gap: var(--space-300); flex-wrap: wrap; }
-    #contact { padding-block: calc(var(--space-900) * 1.3); padding-inline: max(var(--gutter), calc((100% - 1040px) / 2)); }
+    #contact { padding-block: calc(var(--space-900) * 2); padding-inline: max(var(--gutter), calc((100% - 1040px) / 2)); text-align: center; }
+    #contact .contact-row { justify-content: center; }
     #contact h2 { font-size: clamp(40px, 4.6vw, 54px); font-weight: 500; line-height: 0.98; letter-spacing: -0.02em; margin-bottom: var(--space-700); }
     .contact-row { gap: var(--space-200); }
 
@@ -295,7 +299,7 @@
       <section class="studio__section" id="education" aria-labelledby="education-title">
         <h2 id="education-title">Education and Experience</h2>
         <div class="studio__grid">
-        <div>
+        <p class="studio__body">Throughout the duration of my three-year degree, I have completed a number of projects spanning visual communications design. My practice explores brand identity, UX/UI, print media and digital systems, developed through client style briefs. Across these projects, I bring the same attention to detail and restraint to every brief, creating interactions and identities that feel like more than the sum of their parts.</p>
         <dl class="catalogue">
           <div><dt>Institution</dt><dd>University of Wollongong</dd></div>
           <div><dt>Degree</dt><dd>Bachelor of Creative Arts (Visual Arts and Design)</dd></div>
@@ -303,13 +307,12 @@
         </dl>
         </div>
         <div class="placard studio__resume">
-          <p class="studio__body">Throughout the duration of my three-year degree, I have completed a number of projects spanning visual communications design. My practice explores brand identity, UX/UI, print media and digital systems, developed through client style briefs. Across these projects, I bring the same attention to detail and restraint to every brief, creating interactions and identities that feel like more than the sum of their parts.</p>
           <div class="studio__resume-foot">
-            <p class="placard__eyebrow">Resume</p>
-            <p class="studio__body">Would you like a copy of my resume?</p>
-            <a class="btn btn--dark btn--sm" href="assets/Mercadies-Resume-2026.pdf" download="Mercadies-Resume-2026.pdf" aria-label="Download resume as PDF">Download</a>
+            <div class="studio__resume-row">
+              <p class="studio__body">Would you like a copy of my resume?</p>
+              <a class="btn btn--dark btn--sm" href="assets/Mercadies-Resume-2026.pdf" download="Mercadies-Resume-2026.pdf" aria-label="Download resume as PDF">Download</a>
+            </div>
           </div>
-        </div>
         </div>
       </section>
 
