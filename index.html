@@ -80,9 +80,9 @@
       display: block; font-family: var(--font-hero); font-weight: 400; font-size: 24px;
       color: var(--ink); margin-bottom: 4px;
     }
-    .plaque em { font-style: normal; color: var(--accent); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .plaque em { font-style: normal; color: var(--accent); font-weight: 600; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
     .card-head { display: grid; row-gap: var(--space-100); padding-bottom: var(--space-300); margin-bottom: var(--space-300); border-bottom: 1px solid rgba(42, 42, 42, 0.12); }
-    .card-head__title { font-family: var(--font-hero); font-size: 26px; line-height: 1.1; color: var(--ink); margin: 0; }
+    .card-head__title { font-family: var(--font-display); font-weight: 600; font-size: 20px; line-height: 1.1; color: var(--accent); margin: 0; }
     .card-head__artist { font-style: italic; color: var(--ink); margin: 0; }
     .card-head__meta { font-size: 13px; color: rgba(42, 42, 42, 0.6); margin: 0; }
     .piece a { display: block; color: inherit; }
@@ -92,9 +92,18 @@
     .placard {
       max-width: 520px; padding: 0;
     }
+    .about-row { display: grid; grid-template-columns: minmax(0, 1fr) clamp(300px, 26vw, 480px); gap: clamp(var(--space-500), 5vw, var(--space-800)); align-items: start; }
+    .about-photo { margin: 0; padding: 0; background: none; box-shadow: none; transition: transform 0.9s var(--ease-expo); }
+    .about-photo img { display: block; width: 100%; height: auto; box-shadow: 0 30px 60px -28px rgba(40, 36, 30, 0.4), 0 8px 18px -10px rgba(40, 36, 30, 0.25); transition: transform 0.9s var(--ease-expo), box-shadow 0.9s ease-out; }
+    @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+      .about-photo:hover { transform: scale(1.04); }
+      .about-photo:hover img { box-shadow: 0 44px 80px -30px rgba(40, 36, 30, 0.5), 0 12px 24px -10px rgba(40, 36, 30, 0.3); }
+    }
+    @media (max-width: 900px) { .about-row { grid-template-columns: minmax(0, 1fr); gap: var(--space-500); } .about-photo { max-width: 360px; margin: 0 auto; } }
+    @media (min-width: 1800px) { .about-row { grid-template-columns: minmax(0, 1fr) 560px; } }
     .placard__eyebrow {
       font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--accent); margin: 0 0 var(--space-300);
+      color: var(--accent); font-weight: 600; margin: 0 0 var(--space-300);
     }
     .catalogue { margin: 0; max-width: 600px; border-top: 1px solid rgba(42, 42, 42, 0.2); }
     .catalogue div {
@@ -165,11 +174,10 @@
     section[id] { scroll-margin-top: 96px; }
     .studio__section {
       padding: var(--space-900) var(--gutter);
-      border-top: 1px solid rgba(42, 42, 42, 0.06);
     }
     .studio__section h2 {
       font-family: var(--font-hero); font-weight: 400; font-size: var(--text-heading); line-height: var(--lh-heading);
-      margin: 0 0 var(--heading-gap);
+      margin: 0 0 var(--space-300);
     }
     .studio__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-800); }
     .studio__tagline { font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(0, 0, 0, 0.6); margin-bottom: var(--space-200); }
@@ -182,7 +190,8 @@
     .studio__resume-foot { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-400); }
     .studio__resume-foot .placard__eyebrow { margin: 0; }
     .contact-row { display: flex; gap: var(--space-300); flex-wrap: wrap; }
-    #contact h2 { font-size: clamp(36px, 4vw, 52px); font-weight: 500; line-height: 0.98; letter-spacing: -0.02em; margin-bottom: var(--space-700); }
+    #contact { padding-block: calc(var(--space-900) * 1.3); }
+    #contact h2 { font-size: clamp(40px, 4.6vw, 54px); font-weight: 500; line-height: 0.98; letter-spacing: -0.02em; margin-bottom: var(--space-700); }
     .contact-row { gap: var(--space-200); }
 
     @media (max-width: 900px) {
@@ -269,14 +278,16 @@
 
       <section class="studio__section" id="about" aria-labelledby="about-title">
         <h2 id="about-title">About Me</h2>
+        <div class="about-row">
         <div class="placard">
-          <p class="placard__eyebrow">Artist’s statement</p>
           <div class="card-head">
-            <p class="card-head__title">Artist &amp; Designer</p>
-            <p class="card-head__artist">Mercadies</p>
-            <p class="card-head__meta">Oil painter · Visual communications designer</p>
+            <p class="card-head__title">Artist &amp; Graphic Designer</p>
           </div>
           <p class="studio__body">I’m passionate about creating experiences that connect and grow with people. I care about clarity, restraint, intention and confidence that curates meaningful interactions and experiences. I love the moment when a small detail, a transition, a hover state, a piece of micro-interaction, makes someone pause and think. Less is more, in my books. My oil painting practice channels my beliefs in audience experience through composition and colour. Art and design isn’t supposed to just be an experience, it’s a feeling. Moving forward, I want to hone my skills within the UX/UI space, designing digital experiences with the same intentionality that I bring to the canvas.</p>
+        </div>
+        <figure class="about-photo" style="margin: 0;">
+          <img src="assets/about-commbank.jpg" width="1400" height="1867" loading="lazy" alt="Mercadies McDonald, smiling, in a dark outfit against a plain light background">
+        </figure>
         </div>
       </section>
 

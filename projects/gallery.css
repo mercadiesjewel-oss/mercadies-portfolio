@@ -26,7 +26,7 @@ main { position: relative; z-index: 1; }
 .p-title .ch { display: inline-block; opacity: 0; filter: blur(8px); transform: translateY(0.4em); animation: p-ch-in 1.2s var(--ease-expo) both; animation-delay: var(--d, 0s); }
 @keyframes p-ch-in { to { opacity: 1; filter: blur(0); transform: none; } }
 @media (prefers-reduced-motion: reduce) { .p-title .ch { animation: none; opacity: 1; filter: none; transform: none; } }
-.p-eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 var(--space-300); }
+.p-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin: 0 0 var(--space-300); }
 .p-title {
   font-family: var(--font-hero); font-weight: 500; font-size: clamp(44px, 5.5vw, 64px);
   line-height: 1.02; letter-spacing: -0.01em; margin: 0; color: var(--ink);
@@ -77,22 +77,22 @@ main { position: relative; z-index: 1; }
   font-size: 14px; line-height: 1.55; color: rgba(42, 42, 42, 0.72);
 }
 .p-label p { margin: 0; }
-.p-label__cat { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.p-label__cat { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
 .p-label__title { font-family: var(--font-hero); font-size: 26px; line-height: 1.1; color: var(--ink); margin-top: var(--space-100); }
 .p-label__artist { font-style: italic; color: var(--ink); }
 .p-label__desc { margin-top: var(--space-200); padding-top: var(--space-200); border-top: 1px solid rgba(42, 42, 42, 0.12); }
 
 .wall-label { max-width: 540px; display: grid; row-gap: var(--space-100); font-size: var(--text-body); line-height: var(--lh-body); color: var(--ink); }
 .wall-label p { margin: 0; }
-.wall-label__name { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.wall-label__name { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
 .wall-label__title { font-family: var(--font-hero); font-size: 26px; line-height: 1.1; color: var(--ink); margin-top: var(--space-100); }
-.wall-label__sale { color: var(--accent); margin-top: var(--space-100); }
-.wall-label__text { margin-top: var(--space-200); padding-top: var(--space-200); border-top: 1px solid rgba(42, 42, 42, 0.12); }
+.wall-label__sale { color: var(--accent); font-weight: 600; margin-top: var(--space-100); }
+.wall-label .wall-label__text { margin-top: calc(var(--space-300) - var(--space-100)); padding-top: var(--space-300); border-top: 1px solid rgba(42, 42, 42, 0.12); }
 
-.p-section { padding: var(--space-900) var(--gutter); border-top: 1px solid rgba(42, 42, 42, 0.06); }
+.p-section { padding: var(--space-900) var(--gutter); }
 .p-section h2 {
   font-family: var(--font-hero); font-weight: 400; font-size: var(--text-heading); line-height: var(--lh-heading);
-  margin: 0 0 var(--heading-gap);
+  margin: 0 0 var(--space-300);
 }
 .p-body { font-size: var(--text-body); line-height: var(--lh-body); max-width: 640px; margin: 0; }
 .p-body + .p-body { margin-top: var(--space-300); }
@@ -120,9 +120,9 @@ main { position: relative; z-index: 1; }
 .p-catalogue dt { color: rgba(42, 42, 42, 0.55); }
 .p-catalogue dd { margin: 0; text-align: right; }
 
-.p-contact { padding: var(--space-900) var(--gutter); border-top: 1px solid rgba(42, 42, 42, 0.06); }
+.p-contact { padding: calc(var(--space-900) * 1.3) var(--gutter); }
 .p-contact h2 {
-  font-family: var(--font-hero); font-weight: 500; font-size: clamp(36px, 4vw, 52px);
+  font-family: var(--font-hero); font-weight: 500; font-size: clamp(40px, 4.6vw, 54px);
   line-height: 0.98; letter-spacing: -0.02em; margin: 0 0 var(--space-600);
 }
 .p-contact .contact-row { display: flex; gap: var(--space-200); flex-wrap: wrap; }

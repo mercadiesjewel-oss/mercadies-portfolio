@@ -5,7 +5,8 @@
 .p-main > .p-side { grid-column: 1; grid-row: 1; align-self: start; justify-self: center; width: min(100%, 460px); }
 .p-main > .p-side img { max-height: 70vh; }
 .p-main > .p-side.p-placeholder { aspect-ratio: 3 / 4; }
-.p-main > .p-side--float { width: min(100%, 540px); padding: 0; background: none; border: 0; box-shadow: none; }
+.p-main > .p-side--float { width: min(100%, clamp(400px, 38vw, 680px)); padding: 0; background: none; border: 0; box-shadow: none; }
+@media (min-width: 1800px) { .p-main > .p-side--float { width: min(100%, 760px); } .p-main > .p-side--float.is-cards img { max-height: 88vh; } }
 .p-split.has-wide-hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
 .p-main > .p-side--float.is-cards { width: 100%; }
 .p-main > .p-side.p-side--float.is-cards img { max-height: 84vh; box-shadow: none; filter: none; }
