@@ -156,15 +156,12 @@
     .piece__stage { transform-origin: 50% 0; animation: hang 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(var(--t0) + 0.2s + var(--n, 0) * 0.25s); }
     .piece .plaque { animation: intro-fade 1.2s var(--ease-expo) both; animation-delay: calc(var(--t0) + 0.6s + var(--n, 0) * 0.25s); }
     .walk-cue {
-      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(42, 42, 42, 0.5);
+      font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #3a3a3a;
       padding: 0 max(var(--gutter), calc((100% - 1040px) / 2)); margin: 0 0 var(--space-200);
-      animation: walk-cue 7s ease-in-out 3.6s both;
+      transition: opacity 0.6s ease-out;
     }
-    @keyframes walk-cue {
-      0% { opacity: 0; }
-      15%, 75% { opacity: 1; }
-      100% { opacity: 0; }
-    }
+    .walk-cue.is-done { opacity: 0; }
+    @media (max-width: 720px) { .walk-cue { display: none; } }
     .btn, .piece a { transition: transform 0.4s var(--ease-expo), box-shadow 0.4s ease-out, background-color 0.4s ease-out, color 0.4s ease-out; }
     .btn:active { transform: scale(0.97); }
     .piece a:active { transform: scale(0.985); }
@@ -328,7 +325,8 @@
 
   <script>
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.querySelectorAll('.studio__intro .intro-line').forEach((el, line) => {
+    [...document.querySelectorAll('.studio__intro .intro-line'), ...document.querySelectorAll('.walk-cue')].forEach((el, index) => {
+      const line = el.classList.contains('walk-cue') ? 0 : index;
       const text = el.textContent.trim();
       const sr = document.createElement('span');
       sr.className = 'sr-only';
@@ -355,6 +353,8 @@
     });
     const walk = document.querySelector('#gallery .walk');
     const pieces = [...walk.querySelectorAll('.piece')];
+    const walkCue = document.querySelector('.walk-cue');
+    walk.addEventListener('scroll', () => walkCue.classList.add('is-done'), { passive: true, once: true });
 
     const current = () => {
       const mid = walk.scrollLeft + walk.clientWidth / 2;
@@ -392,9 +392,13 @@
       document.documentElement.classList.add('gallery-hover');
       let target = 0, current = 0, vel = 0, raf = null;
       const frame = () => {
-        if (vel) target = Math.max(0, Math.min(maxScroll(), target + vel));
-        current += (target - current) * 0.1;
-        if (Math.abs(target - current) < 0.5) current = target;
+        if (vel) {
+          current = Math.max(0, Math.min(maxScroll(), current + vel));
+          target = current;
+        } else {
+          current += (target - current) * 0.16;
+          if (Math.abs(target - current) < 0.5) current = target;
+        }
         walk.scrollLeft = current;
         const mid = current + walk.clientWidth / 2;
         pieces.forEach((p) => {
@@ -408,7 +412,8 @@
       walk.addEventListener('pointermove', (e) => {
         const r = walk.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width;
-        vel = x < 0.35 ? -Math.min(1, (0.35 - x) / 0.2) * 9 : x > 0.65 ? Math.min(1, (x - 0.65) / 0.2) * 9 : 0;
+        const speed = (d) => 6 + 8 * Math.min(1, d / 0.12);
+        vel = x < 0.3 ? -speed(0.3 - x) : x > 0.7 ? speed(x - 0.7) : 0;
         if (vel && !raf) { current = target = walk.scrollLeft; raf = requestAnimationFrame(frame); }
       });
       walk.addEventListener('pointerleave', () => { vel = 0; });
